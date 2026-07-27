@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Projetos — Instituto Cerrados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#0F6E56; --verde-esc:#0A5A45; --verde-mais-esc:#07463A;
+  --laranja:#E64A19; --laranja-claro:#FF7043;
+  --ok:#4CAF50; --warn:#FF7043; --neutro:#9E9E9E;
+  --bg:#F4F4F4; --card:#fff; --card2:#F9FAFB; --borda:#E5E7EB;
+  --txt:#111827; --txt2:#6B7280;
+  --j:#14532D; --s:#A8842C; --p:#7A6A2F; --c:#0F6E56; --e:#4CAF50; --x:#1F2937;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',ui-sans-serif,sans-serif;background:var(--bg);color:var(--txt);font-size:14px}
+.ic{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px;flex:none}
+.layout{display:flex;min-height:100vh}
+/* ===== sidebar ===== */
+aside{width:232px;background:var(--verde);color:#fff;flex:none;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.brand{display:flex;gap:10px;align-items:center;padding:18px 16px;background:var(--verde-esc)}
+.brand .logo{width:36px;height:36px;border-radius:50%;background:#fff;color:var(--verde);display:flex;align-items:center;justify-content:center;flex:none}
+.brand .logo .ic{width:20px;height:20px}
+.brand b{font-size:.92rem;display:block;line-height:1.2}
+.brand span{font-size:.7rem;opacity:.8}
+nav{padding:12px 10px;flex:1;overflow-y:auto}
+.nav-label{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.6;padding:10px 8px 4px}
+.nav-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:transparent;color:#fff;padding:9px 10px;border-radius:8px;font-family:inherit;font-size:.83rem;font-weight:500;cursor:pointer;margin-bottom:2px}
+.nav-item:hover{background:rgba(255,255,255,.12)}
+.nav-item.on{background:rgba(255,255,255,.2);font-weight:700}
+.nav-item .dot{width:8px;height:8px;border-radius:50%;flex:none;margin-left:auto}
+.nav-item.soon{opacity:.45;cursor:default}
+.nav-item.soon:hover{background:transparent}
+.nav-item .soon-tag{margin-left:auto;font-size:.6rem;background:rgba(255,255,255,.15);border-radius:8px;padding:1px 7px;font-weight:600}
+.side-foot{padding:14px 16px;font-size:.68rem;opacity:.75;border-top:1px solid rgba(255,255,255,.15);line-height:1.5}
+/* ===== main ===== */
+main{flex:1;min-width:0}
+.topbar{background:var(--laranja);color:#fff;padding:14px 26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.topbar h1{font-size:1.15rem;font-weight:700;letter-spacing:-.01em}
+.topbar .right{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:8px;padding:6px 12px;font-size:.75rem;font-weight:600}
+.banner{background:var(--verde-esc);color:#fff;margin:18px 26px 0;border-radius:10px;padding:14px 20px;display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.banner .big{font-size:1.5rem;font-weight:800}
+.banner .big small{font-size:.75rem;font-weight:500;opacity:.85;margin-left:6px}
+.banner .item{display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:600}
+.banner .item .dot{width:9px;height:9px;border-radius:50%}
+/* ===== sections ===== */
+.content{padding:10px 26px 30px}
+section{margin-top:22px}
+.sec-head{display:flex;align-items:center;gap:10px;padding-bottom:8px;border-bottom:2px solid var(--borda);margin-bottom:14px}
+.sec-head .swatch{width:10px;height:26px;border-radius:4px;flex:none}
+.sec-head h2{font-size:1.02rem;font-weight:700}
+.sec-head .count{font-size:.72rem;color:var(--txt2);font-weight:600;background:#fff;border:1px solid var(--borda);border-radius:12px;padding:2px 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px}
+/* ===== cards ===== */
+.card{background:var(--card);border:1px solid var(--borda);border-radius:10px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.card-top{padding:14px 16px 10px;border-top:3px solid var(--acc,var(--verde))}
+.card-top h3{font-size:.98rem;font-weight:700;display:flex;align-items:center;gap:8px}
+.card-top h3 .ic{color:var(--acc,var(--verde))}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:600;border-radius:6px;padding:3px 9px;border:1px solid var(--borda);background:var(--card2);color:var(--txt2)}
+.badge .dot{width:7px;height:7px;border-radius:50%}
+.d-ok{background:var(--ok)}.d-warn{background:var(--warn)}.d-neutro{background:var(--neutro)}
+.card-body{padding:10px 16px 12px;flex:1}
+.campo{display:flex;gap:9px;margin-bottom:8px;font-size:.79rem;line-height:1.45}
+.campo .ic{margin-top:2px;color:var(--verde)}
+.campo b{display:block;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--txt2)}
+.pend{color:var(--laranja);font-weight:600}
+details{margin-top:4px;border:1px solid var(--borda);border-radius:8px;background:var(--card2)}
+summary{cursor:pointer;font-weight:600;font-size:.75rem;color:var(--verde);padding:8px 12px;display:flex;align-items:center;gap:7px;list-style:none}
+summary::-webkit-details-marker{display:none}
+details[open] summary{border-bottom:1px solid var(--borda)}
+.sug{padding:8px 12px 10px}
+.sug ul{margin-left:16px;font-size:.76rem;line-height:1.5}
+.sug li{margin-bottom:4px}
+.card-foot{padding:10px 16px;background:var(--card2);border-top:1px solid var(--borda);display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:7px;font-size:.76rem;font-weight:600;border-radius:8px;padding:7px 13px;text-decoration:none;border:1px solid var(--borda)}
+.btn-pri{background:var(--verde);color:#fff;border-color:var(--verde)}
+.btn-pri:hover{background:var(--verde-esc)}
+.btn-sec{background:#fff;color:var(--verde)}
+.btn-sec:hover{border-color:var(--verde)}
+/* transversal */
+.transv{margin-top:26px;background:#fff;border:1px solid var(--borda);border-radius:10px;padding:16px 20px}
+.transv h2{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.transv h2 .ic{color:var(--laranja)}
+.transv ol{margin-left:18px;font-size:.8rem;line-height:1.65}
+footer{padding:14px 26px 24px;font-size:.7rem;color:var(--txt2)}
+@media(max-width:860px){.layout{flex-direction:column}aside{width:100%;height:auto;position:static}nav{display:flex;flex-wrap:wrap;gap:2px}.nav-label{width:100%}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+<defs>
+<symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+<symbol id="i-feather" viewBox="0 0 24 24"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+<symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></symbol>
+<symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+<symbol id="i-brief" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+<symbol id="i-map" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+<symbol id="i-ext" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+<symbol id="i-activity" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></symbol>
+<symbol id="i-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+<symbol id="i-bulb" viewBox="0 0 24 24"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol>
+</defs>
+</svg>
+
+<div class="layout">
+<aside>
+  <div class="brand">
+    <div class="logo"><svg class="ic"><use href="#i-leaf"/></svg></div>
+    <div><b>Instituto Cerrados</b><span>Painel de Projetos</span></div>
+  </div>
+  <nav id="nav">
+    <div class="nav-label">Programas</div>
+    <button class="nav-item on" data-f="todos"><svg class="ic"><use href="#i-grid"/></svg>Todos os projetos</button>
+    <button class="nav-item" data-f="jurema"><svg class="ic"><use href="#i-leaf"/></svg>Jurema<span class="dot" style="background:var(--j)"></span></button>
+    <button class="nav-item" data-f="suindara"><svg class="ic"><use href="#i-feather"/></svg>Suindara<span class="dot" style="background:var(--s)"></span></button>
+    <button class="nav-item" data-f="cacimba"><svg class="ic"><use href="#i-drop"/></svg>Cacimba<span class="dot" style="background:var(--c)"></span></button>
+    <button class="nav-item" data-f="executivo"><svg class="ic"><use href="#i-brief"/></svg>Executivo<span class="dot" style="background:var(--x)"></span></button>
+    <div class="nav-label">Em estruturação</div>
+    <button class="nav-item soon"><svg class="ic"><use href="#i-users"/></svg>Povos do Cerrado<span class="soon-tag">em breve</span></button>
+    <button class="nav-item soon"><svg class="ic"><use href="#i-link"/></svg>Elos do Cerrado<span class="soon-tag">em breve</span></button>
+  </nav>
+  <div class="side-foot">Rumo a um milhão de hectares<br>Fonte: sistema-cerrado.streamlit.app + verificação de 27/07/2026</div>
+</aside>
+
+<main>
+<div class="topbar">
+  <h1>Visão geral das plataformas</h1>
+  <div class="right">
+    <span class="pill"><svg class="ic"><use href="#i-clock"/></svg>Verificado em 27/07/2026</span>
+    <span class="pill"><svg class="ic"><use href="#i-activity"/></svg>Monitor semanal ativo</span>
+  </div>
+</div>
+
+<div class="banner">
+  <span class="big">9<small>plataformas</small></span>
+  <span class="item"><span class="dot d-ok"></span>6 no ar</span>
+  <span class="item"><span class="dot d-warn"></span>3 não verificáveis (Streamlit)</span>
+  <span class="item"><svg class="ic"><use href="#i-activity"/></svg>9 monitoradas</span>
+  <span class="item"><svg class="ic"><use href="#i-users"/></svg>0 com analytics de uso</span>
+</div>
+
+<div class="content">
+
+<!-- ================= JUREMA ================= -->
+<section data-g="jurema" style="--acc:var(--j)">
+  <div class="sec-head"><span class="swatch" style="background:var(--j)"></span><h2>Programa Jurema</h2><span class="count">3 plataformas</span></div>
+  <div class="grid">
+
+  <div class="card" style="--acc:var(--j)">
+    <div class="card-top">
+      <h3><svg class="ic"><use href="#i-map"/></svg>Diagnóstico Territorial</h3>
+      <div class="badges">
+        <span class="badge"><span class="dot d-warn"></span>Não verificável (Streamlit)</span>
+        <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Diagnóstico territorial do Programa Jurema (Streamlit). <span class="pend">Escopo a confirmar.</span></div></div>
+      <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b><span class="pend">A preencher</span></div></div>
+      <div class="campo"><svg class="ic"><use href="#i-zap"/></svg><div><b>Skill associada</b>instituto-cerrados-branding (ativa)</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b><span class="pend">A registrar</span></div></div>
+      <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul>
+        <li>Streamlit Community hiberna sem uso; migrar para Hugging Face Spaces ou Vercel se for institucional.</li>
+        <li>Instalar analytics gratuito (GoatCounter) para medir uso real.</li>
+      </ul></div></details>
+    </div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://diagnostico-jurema.streamlit.app/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a></div>
+  </div>
+
+  <div class="card" style="--acc:var(--j)">
+    <div class="card-top">
+      <h3><svg class="ic"><use href="#i-drop"/></svg>Adicionalidade Hídrica</h3>
+      <div class="badges">
+        <span class="badge"><span class="dot d-ok"></span>No ar</span>
+        <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-lock"/></svg>Login @cerrados.org</span>
+        <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Quantifica a infiltração hídrica adicional em áreas protegidas do Cerrado. Acesso restrito à equipe do IC.</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b>Autenticação institucional implantada <span class="pend">(data a confirmar)</span></div></div>
+      <div class="campo"><svg class="ic"><use href="#i-zap"/></svg><div><b>Skill associada</b>yuri-cientifico · instituto-cerrados-branding (ativas)</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b><span class="pend">A registrar</span></div></div>
+      <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul>
+        <li>Renomear o projeto no Vercel (URL própria ou subdomínio .cerrados.org) — a atual é a URL padrão da conta pessoal.</li>
+        <li>Página pública de resumo, sem dados sensíveis, para citação em relatórios.</li>
+      </ul></div></details>
+    </div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://app-yurisalmonas-projects.vercel.app/analise" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a></div>
+  </div>
+
+  <div class="card" style="--acc:var(--j)">
+    <div class="card-top">
+      <h3><svg class="ic"><use href="#i-shield"/></svg>Criação de RPPN</h3>
+      <div class="badges">
+        <span class="badge"><span class="dot d-warn"></span>Não verificável (Streamlit)</span>
+        <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Plataforma de apoio à criação de Reservas Particulares do Patrimônio Natural. <span class="pend">Escopo a confirmar.</span></div></div>
+      <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b><span class="pend">A preencher</span></div></div>
+      <div class="campo"><svg class="ic"><use href="#i-zap"/></svg><div><b>Skill associada</b>instituto-cerrados-branding (ativa)</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b><span class="pend">A registrar</span></div></div>
+      <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul>
+        <li>Mesmo caso dos demais Streamlit: hospedagem que não hiberna + analytics.</li>
+        <li>Checklist interativo das etapas legais de criação de RPPN (ICMBio/órgãos estaduais).</li>
+      </ul></div></details>
+    </div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://plataforma-rppn.streamlit.app/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a></div>
+  </div>
+
+  </div>
+</section>
+
+<!-- ================= SUINDARA ================= -->
+<section data-g="suindara" style="--acc:var(--s)">
+  <div class="sec-head"><span class="swatch" style="background:var(--s)"></span><h2>Programa Suindara</h2><span class="count">1 plataforma</span></div>
+  <div class="grid">
+
+  <div class="card" style="--acc:var(--s)">
+    <div class="card-top">
+      <h3><svg class="ic"><use href="#i-flame"/></svg>Adicionalidade Hídrica (Fogo &amp; Infiltração)</h3>
+      <div class="badges">
+        <span class="badge"><span class="dot d-warn"></span>Não verificável (Streamlit)</span>
+        <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Análise da relação entre fogo e infiltração hídrica — adicionalidade hídrica no contexto do Programa Suindara.</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b><span class="pend">A preencher</span></div></div>
+      <div class="campo"><svg class="ic"><use href="#i-zap"/></svg><div><b>Skill associada</b>yuri-cientifico (ativa) — linha central de pesquisa</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b><span class="pend">A registrar</span></div></div>
+      <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul>
+        <li>Transformar os resultados em nota técnica ou artigo com a skill yuri-cientifico.</li>
+        <li>Hospedagem sem hibernação + analytics, como os demais Streamlit.</li>
+      </ul></div></details>
+    </div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://fogo-infiltracao.streamlit.app/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a></div>
+  </div>
+
+  </div>
+</section>
+
+<!-- ================= CACIMBA ================= -->
+<section data-g="cacimba" style="--acc:var(--c)">
+  <div class="sec-head"><span class="swatch" style="background:var(--c)"></span><h2>Programa Cacimba</h2><span class="count">3 plataformas · cooperação MMA + IPH/UFRGS</span></div>
+  <div class="grid">
+
+  <div class="card" style="--acc:var(--c)">
+    <div class="card-top">
+      <h3><svg class="ic"><use href="#i-map"/></svg>Webmap APCAC</h3>
+      <div class="badges">
+        <span class="badge"><span class="dot d-ok"></span>No ar</span>
+        <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Mapa interativo das Áreas Prioritárias para Conservação de Água do Cerrado em 3 escalas (bioma, região hidrográfica, UPH), com prioridade de ação e risco hidrológico.</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b>Webmap publicado com seleção territorial interativa</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-zap"/></svg><div><b>Skill associada</b>cerrado-gee-setup · instituto-cerrados-branding (ativas)</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b>GitHub: yurisalmona/apcac-webmap · Drive <span class="pend">a registrar</span></div></div>
+      <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul>
+        <li>Acelerar o carregamento inicial (tiles vetoriais/TopoJSON + indicador de progresso).</li>
+        <li>Botão "como citar" — relevante por ser produto de cooperação com o MMA.</li>
+      </ul></div></details>
+    </div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://yurisalmona.github.io/apcac-webmap/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a></div>
+  </div>
+
+  <div class="card" style="--acc:var(--c)">
+    <div class="card-top">
+      <h3><svg class="ic"><use href="#i-file"/></svg>Nota Técnica APCAC</h3>
+      <div class="badges">
+        <span class="badge"><span class="dot d-ok"></span>No ar</span>
+        <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Nota técnica web do estudo APCAC: metodologia, 11 regiões hidrográficas e indicações de proteção, restauração, comando-controle e manejo.</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b>Nota técnica completa publicada</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-zap"/></svg><div><b>Skill associada</b>yuri-cientifico · ic-documentos (ativas)</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b>GitHub: yurisalmona/apcac-nota · Drive <span class="pend">a registrar</span></div></div>
+      <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul>
+        <li>Versão PDF com DOI (Zenodo, gratuito) para citação acadêmica.</li>
+        <li>Navegação comum interligando as três peças APCAC.</li>
+      </ul></div></details>
+    </div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://yurisalmona.github.io/apcac-nota/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a></div>
+  </div>
+
+  <div class="card" style="--acc:var(--c)">
+    <div class="card-top">
+      <h3><svg class="ic"><use href="#i-layers"/></svg>Sobreposição de Área com APCAC</h3>
+      <div class="badges">
+        <span class="badge"><span class="dot d-ok"></span>No ar</span>
+        <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Consulta por shapefile zipado ou polígono desenhado no mapa: retorna a classe APCAC, o risco e a ação recomendada para o local ("Está dentro?").</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b>Ferramenta de consulta operacional</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-zap"/></svg><div><b>Skill associada</b>cerrado-gee-setup · instituto-cerrados-branding (ativas)</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b>GitHub: yurisalmona/apcac-analise · Drive <span class="pend">a registrar</span></div></div>
+      <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul>
+        <li>Aceitar também GeoJSON e KML além de shapefile.</li>
+        <li>Relatório PDF do resultado da consulta, para anexar em processos.</li>
+      </ul></div></details>
+    </div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://yurisalmona.github.io/apcac-analise/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a></div>
+  </div>
+
+  </div>
+</section>
+
+<!-- ================= EXECUTIVO ================= -->
+<section data-g="executivo" style="--acc:var(--x)">
+  <div class="sec-head"><span class="swatch" style="background:var(--x)"></span><h2>Executivo</h2><span class="count">2 plataformas</span></div>
+  <div class="grid">
+
+  <div class="card" style="--acc:var(--x)">
+    <div class="card-top">
+      <h3><svg class="ic"><use href="#i-search"/></svg>Curadoria de Editais</h3>
+      <div class="badges">
+        <span class="badge"><span class="dot d-ok"></span>No ar</span>
+        <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Curadoria e gestão de editais e oportunidades de financiamento: achados, fluxo, pré-preenchimento e documentos.</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b>Dashboard com 25 editais abertos classificados por aderência (verificado em 27/07/2026)</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-zap"/></svg><div><b>Skill associada</b>ic-documentos (ativa) — redação de propostas</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b>Integração "Sync Sheets" ativa · Drive <span class="pend">a registrar</span></div></div>
+      <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul>
+        <li>Alerta automático de editais com prazo próximo (e-mail/WhatsApp).</li>
+        <li>Arquivar propostas enviadas por edital no Drive do IC.</li>
+      </ul></div></details>
+    </div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://plataforma-editais-ic.vercel.app/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a></div>
+  </div>
+
+  <div class="card" style="--acc:var(--x)">
+    <div class="card-top">
+      <h3><svg class="ic"><use href="#i-globe"/></svg>Sistema Cerrado (Hub)</h3>
+      <div class="badges">
+        <span class="badge"><span class="dot d-ok"></span>No ar (verificado via navegador)</span>
+        <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Portal central "Rumo a um milhão de hectares": organiza todas as plataformas por programa (Jurema, Suindara, Povos, Cacimba, Elos, Executivo) e é a fonte oficial de agrupamento deste painel.</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b>Hub publicado com 6 programas e 8 plataformas linkadas</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-zap"/></svg><div><b>Skill associada</b>instituto-cerrados-branding (ativa)</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b><span class="pend">A registrar</span></div></div>
+      <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul>
+        <li>Hospedar fora do Streamlit (é uma página estática — GitHub Pages resolve e nunca hiberna).</li>
+        <li>Apontar um subdomínio institucional: sistema.cerrados.org.</li>
+      </ul></div></details>
+    </div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://sistema-cerrado.streamlit.app/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a></div>
+  </div>
+
+  </div>
+</section>
+
+<div class="transv">
+  <h2><svg class="ic"><use href="#i-bulb"/></svg>Sugestões transversais</h2>
+  <ol>
+    <li><b>Analytics unificado:</b> nenhuma das 9 mede uso — GoatCounter (gratuito) resolve todas com uma linha de script.</li>
+    <li><b>Domínio institucional:</b> subdomínios de cerrados.org (apcac.cerrados.org, editais.cerrados.org, sistema.cerrados.org) protegem os links citados em relatórios.</li>
+    <li><b>Hibernação do Streamlit:</b> Diagnóstico Territorial, Criação de RPPN e Fogo &amp; Infiltração hibernam sem uso — considerar migração.</li>
+    <li><b>Contexto vivo:</b> o arquivo projetos-ic-contexto.md (no Google Drive) é a memória entre conversas — mantenha-o atualizado.</li>
+    <li><b>Drive organizado:</b> pasta Plataformas/ com subpasta por projeto, caminhos registrados no arquivo mestre.</li>
+  </ol>
+</div>
+
+<footer>Instituto Cerrados · Painel gerado com Claude Cowork · agrupamento oficial: sistema-cerrado.streamlit.app · identidade visual: Plataforma de Editais IC · atualize pedindo em qualquer conversa: "atualize o painel de projetos"</footer>
+</div>
+</main>
+</div>
+
+<script>
+const items=document.querySelectorAll('.nav-item[data-f]'),secs=document.querySelectorAll('section[data-g]');
+items.forEach(b=>b.addEventListener('click',()=>{
+  items.forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  const f=b.dataset.f;
+  secs.forEach(s=>{s.style.display=(f==='todos'||s.dataset.g===f)?'':'none';});
+}));
+</script>
+</body>
+</html>
