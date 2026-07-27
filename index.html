@@ -420,15 +420,15 @@ items.forEach(b=>b.addEventListener('click',()=>{
 
 /* ===== Botão Atualizar: verificação ao vivo pelo navegador ===== */
 const PROJECTS=[
- {url:'https://diagnostico-jurema.streamlit.app/',kind:'ext'},
+ {url:'https://diagnostico-jurema.streamlit.app/',kind:'streamlit'},
  {url:'https://app-yurisalmonas-projects.vercel.app/analise',kind:'ext'},
- {url:'https://plataforma-rppn.streamlit.app/',kind:'ext'},
- {url:'https://fogo-infiltracao.streamlit.app/',kind:'ext'},
+ {url:'https://plataforma-rppn.streamlit.app/',kind:'streamlit'},
+ {url:'https://fogo-infiltracao.streamlit.app/',kind:'streamlit'},
  {url:'https://yurisalmona.github.io/apcac-webmap/',kind:'same'},
  {url:'https://yurisalmona.github.io/apcac-nota/',kind:'same'},
  {url:'https://yurisalmona.github.io/apcac-analise/',kind:'same'},
  {url:'https://plataforma-editais-ic.vercel.app/',kind:'ext'},
- {url:'https://sistema-cerrado.streamlit.app/',kind:'ext'}
+ {url:'https://sistema-cerrado.streamlit.app/',kind:'streamlit'}
 ];
 async function ping(p){
   const ctrl=new AbortController();const t=setTimeout(()=>ctrl.abort(),8000);
@@ -439,7 +439,7 @@ async function ping(p){
     }
     await fetch(p.url,{mode:'no-cors',cache:'no-store',signal:ctrl.signal});
     clearTimeout(t);return 'resp';
-  }catch(e){clearTimeout(t);return 'fail';}
+  }catch(e){clearTimeout(t);return p.kind==='streamlit'?'st':'fail';}
 }
 function setBadge(url,st){
   document.querySelectorAll('.card-foot a').forEach(a=>{
@@ -447,6 +447,7 @@ function setBadge(url,st){
     const b=a.closest('.card').querySelector('.badges .badge');
     if(st==='ok')b.innerHTML='<span class="dot d-ok"></span>No ar — verificado agora';
     else if(st==='resp')b.innerHTML='<span class="dot d-ok"></span>Servidor respondeu agora';
+    else if(st==='st')b.innerHTML='<span class="dot d-warn"></span>Não verificável pelo navegador (Streamlit)';
     else b.innerHTML='<span class="dot" style="background:#C62828"></span>Sem resposta — checar';
   });
 }
@@ -455,13 +456,16 @@ document.getElementById('btn-refresh').addEventListener('click',async()=>{
   btn.disabled=true;icon.classList.add('spin');
   const results=await Promise.all(PROJECTS.map(async p=>({p,st:await ping(p)})));
   results.forEach(r=>setBadge(r.p.url,r.st));
-  const up=results.filter(r=>r.st!=='fail').length,down=results.length-up;
+  const up=results.filter(r=>r.st==='ok'||r.st==='resp').length;
+  const stb=results.filter(r=>r.st==='st').length;
+  const down=results.filter(r=>r.st==='fail').length;
   const hh=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
   document.getElementById('last-check').innerHTML='<svg class="ic"><use href="#i-clock"/></svg>Verificação local: hoje às '+hh;
   const note=document.getElementById('check-note');
   note.style.display='block';
-  note.innerHTML='<b>Verificação local concluída ('+hh+'):</b> '+up+' de '+results.length+' plataformas responderam'+(down?', <b>'+down+' sem resposta</b> — abra o link para confirmar':'')+'. '
-   +'Esta checagem testa, direto do seu navegador, se os servidores respondem (apps Streamlit podem responder e ainda assim estar hibernando). '
+  note.innerHTML='<b>Verificação local concluída ('+hh+'):</b> '+up+' de '+results.length+' plataformas responderam'
+   +(stb?', '+stb+' não verificáveis pelo navegador (Streamlit bloqueia a checagem — não significa que estão fora do ar)':'')
+   +(down?', <b>'+down+' sem resposta</b> — abra o link para confirmar':'')+'. '
    +'Para a <b>verificação completa</b> — o que mudou em cada projeto e se há projetos novos no Sistema Cerrado — peça ao Claude: '
    +'<b>"atualize o painel de projetos"</b> (skill gestao-projetos-ic), ou aguarde o monitor automático de segunda-feira, que envia notificação se algo cair.';
   btn.disabled=false;icon.classList.remove('spin');
