@@ -89,6 +89,13 @@ details[open] summary{border-bottom:1px solid var(--borda)}
 .transv h2 .ic{color:var(--laranja)}
 .transv ol{margin-left:18px;font-size:.8rem;line-height:1.65}
 footer{padding:14px 26px 24px;font-size:.7rem;color:var(--txt2)}
+button.pill{cursor:pointer;font-family:inherit;background:rgba(255,255,255,.22);transition:.15s}
+button.pill:hover{background:rgba(255,255,255,.38)}
+button.pill:disabled{opacity:.6;cursor:wait}
+.spin{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#check-note{display:none;margin:14px 26px 0;background:rgba(230,74,25,.07);border:1px solid rgba(230,74,25,.35);border-radius:10px;padding:12px 16px;font-size:.8rem;line-height:1.55}
+#check-note b{color:var(--laranja)}
 @media(max-width:860px){.layout{flex-direction:column}aside{width:100%;height:auto;position:static}nav{display:flex;flex-wrap:wrap;gap:2px}.nav-label{width:100%}.grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -119,6 +126,7 @@ footer{padding:14px 26px 24px;font-size:.7rem;color:var(--txt2)}
 <symbol id="i-bulb" viewBox="0 0 24 24"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5"/></symbol>
 <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></symbol>
 <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></symbol>
 </defs>
 </svg>
 
@@ -146,8 +154,9 @@ footer{padding:14px 26px 24px;font-size:.7rem;color:var(--txt2)}
 <div class="topbar">
   <h1>Visão geral das plataformas</h1>
   <div class="right">
-    <span class="pill"><svg class="ic"><use href="#i-clock"/></svg>Verificado em 27/07/2026</span>
+    <span class="pill" id="last-check"><svg class="ic"><use href="#i-clock"/></svg>Verificado em 27/07/2026</span>
     <span class="pill"><svg class="ic"><use href="#i-activity"/></svg>Monitor semanal ativo</span>
+    <button class="pill" id="btn-refresh" title="Verificar agora, direto do seu navegador, se cada plataforma responde"><svg class="ic" id="refresh-ic"><use href="#i-refresh"/></svg>Atualizar</button>
   </div>
 </div>
 
@@ -158,6 +167,8 @@ footer{padding:14px 26px 24px;font-size:.7rem;color:var(--txt2)}
   <span class="item"><svg class="ic"><use href="#i-activity"/></svg>9 monitoradas</span>
   <span class="item"><svg class="ic"><use href="#i-users"/></svg>0 com analytics de uso</span>
 </div>
+
+<div id="check-note"></div>
 
 <div class="content">
 
@@ -406,6 +417,55 @@ items.forEach(b=>b.addEventListener('click',()=>{
   const f=b.dataset.f;
   secs.forEach(s=>{s.style.display=(f==='todos'||s.dataset.g===f)?'':'none';});
 }));
+
+/* ===== Botão Atualizar: verificação ao vivo pelo navegador ===== */
+const PROJECTS=[
+ {url:'https://diagnostico-jurema.streamlit.app/',kind:'ext'},
+ {url:'https://app-yurisalmonas-projects.vercel.app/analise',kind:'ext'},
+ {url:'https://plataforma-rppn.streamlit.app/',kind:'ext'},
+ {url:'https://fogo-infiltracao.streamlit.app/',kind:'ext'},
+ {url:'https://yurisalmona.github.io/apcac-webmap/',kind:'same'},
+ {url:'https://yurisalmona.github.io/apcac-nota/',kind:'same'},
+ {url:'https://yurisalmona.github.io/apcac-analise/',kind:'same'},
+ {url:'https://plataforma-editais-ic.vercel.app/',kind:'ext'},
+ {url:'https://sistema-cerrado.streamlit.app/',kind:'ext'}
+];
+async function ping(p){
+  const ctrl=new AbortController();const t=setTimeout(()=>ctrl.abort(),8000);
+  try{
+    if(p.kind==='same'){
+      const r=await fetch(p.url,{cache:'no-store',signal:ctrl.signal});
+      clearTimeout(t);return r.ok?'ok':'fail';
+    }
+    await fetch(p.url,{mode:'no-cors',cache:'no-store',signal:ctrl.signal});
+    clearTimeout(t);return 'resp';
+  }catch(e){clearTimeout(t);return 'fail';}
+}
+function setBadge(url,st){
+  document.querySelectorAll('.card-foot a').forEach(a=>{
+    if(a.getAttribute('href')!==url)return;
+    const b=a.closest('.card').querySelector('.badges .badge');
+    if(st==='ok')b.innerHTML='<span class="dot d-ok"></span>No ar — verificado agora';
+    else if(st==='resp')b.innerHTML='<span class="dot d-ok"></span>Servidor respondeu agora';
+    else b.innerHTML='<span class="dot" style="background:#C62828"></span>Sem resposta — checar';
+  });
+}
+document.getElementById('btn-refresh').addEventListener('click',async()=>{
+  const btn=document.getElementById('btn-refresh'),icon=document.getElementById('refresh-ic');
+  btn.disabled=true;icon.classList.add('spin');
+  const results=await Promise.all(PROJECTS.map(async p=>({p,st:await ping(p)})));
+  results.forEach(r=>setBadge(r.p.url,r.st));
+  const up=results.filter(r=>r.st!=='fail').length,down=results.length-up;
+  const hh=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('last-check').innerHTML='<svg class="ic"><use href="#i-clock"/></svg>Verificação local: hoje às '+hh;
+  const note=document.getElementById('check-note');
+  note.style.display='block';
+  note.innerHTML='<b>Verificação local concluída ('+hh+'):</b> '+up+' de '+results.length+' plataformas responderam'+(down?', <b>'+down+' sem resposta</b> — abra o link para confirmar':'')+'. '
+   +'Esta checagem testa, direto do seu navegador, se os servidores respondem (apps Streamlit podem responder e ainda assim estar hibernando). '
+   +'Para a <b>verificação completa</b> — o que mudou em cada projeto e se há projetos novos no Sistema Cerrado — peça ao Claude: '
+   +'<b>"atualize o painel de projetos"</b> (skill gestao-projetos-ic), ou aguarde o monitor automático de segunda-feira, que envia notificação se algo cair.';
+  btn.disabled=false;icon.classList.remove('spin');
+});
 </script>
 </body>
 </html>
