@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentação Técnica — Plataformas Instituto Cerrados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--verde:#0F6E56;--verde-esc:#0A5A45;--laranja:#E64A19;--ok:#4CAF50;--warn:#FF7043;
+--bg:#F4F4F4;--borda:#E5E7EB;--txt:#111827;--txt2:#6B7280;
+--j:#14532D;--s:#A8842C;--c:#0F6E56;--x:#1F2937}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',ui-sans-serif,sans-serif;background:var(--bg);color:var(--txt);font-size:14px}
+.ic{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px;flex:none}
+.topbar{background:var(--laranja);color:#fff;padding:14px 26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:20}
+.topbar h1{font-size:1.1rem;font-weight:700}
+.topbar a.volta{color:#fff;text-decoration:none;font-weight:600;font-size:.8rem;display:inline-flex;gap:6px;align-items:center;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:6px 12px}
+.topbar a.volta:hover{background:rgba(255,255,255,.3)}
+.layout{display:flex;gap:0;max-width:1300px;margin:0 auto}
+aside{width:250px;flex:none;padding:20px 14px;position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto}
+.nav-label{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--txt2);padding:10px 8px 4px}
+aside a{display:block;color:var(--txt);text-decoration:none;font-size:.8rem;font-weight:500;padding:7px 10px;border-radius:8px;border-left:3px solid transparent}
+aside a:hover{background:#fff}
+aside a.j{border-left-color:var(--j)}aside a.s{border-left-color:var(--s)}aside a.c{border-left-color:var(--c)}aside a.x{border-left-color:var(--x)}
+main{flex:1;min-width:0;padding:22px 26px 60px}
+article{background:#fff;border:1px solid var(--borda);border-radius:12px;margin-bottom:26px;overflow:hidden;scroll-margin-top:70px}
+.doc-head{padding:16px 22px;border-top:4px solid var(--acc,var(--verde));border-bottom:1px solid var(--borda);display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.doc-head h2{font-size:1.2rem;font-weight:800}
+.doc-head .prog{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;background:var(--bg);border-radius:12px;padding:3px 12px;color:var(--txt2)}
+.doc-head a.abrir{margin-left:auto;font-size:.75rem;font-weight:700;color:var(--verde);text-decoration:none}
+.doc-head a.abrir:hover{color:var(--laranja)}
+.doc-body{padding:6px 22px 18px}
+.campo{margin-top:14px}
+.campo h3{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--verde);display:flex;gap:7px;align-items:center;margin-bottom:5px}
+.campo p,.campo li{font-size:.83rem;line-height:1.55;color:#26303f}
+.campo ul{margin:4px 0 0 18px}
+.campo li{margin-bottom:3px}
+code{background:var(--bg);border:1px solid var(--borda);border-radius:5px;padding:1px 6px;font-size:.76rem;font-family:ui-monospace,Menlo,Consolas,monospace}
+.formula{background:#F0F7F4;border:1px solid #CDE3DA;border-radius:8px;padding:10px 14px;font-family:ui-monospace,monospace;font-size:.82rem;margin-top:6px}
+.pend{color:var(--laranja);font-weight:600}
+.aviso{background:rgba(230,74,25,.06);border:1px solid rgba(230,74,25,.3);border-radius:8px;padding:10px 14px;font-size:.78rem;line-height:1.5;margin-top:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 26px}
+@media(max-width:900px){.layout{flex-direction:column}aside{position:static;height:auto;width:100%;display:flex;flex-wrap:wrap;gap:2px}.nav-label{width:100%}.grid2{grid-template-columns:1fr}}
+footer{text-align:center;padding:10px 20px 30px;font-size:.7rem;color:var(--txt2)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-back" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+<symbol id="i-cpu" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></symbol>
+<symbol id="i-tree" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></symbol>
+<symbol id="i-tools" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+<symbol id="i-server" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+<symbol id="i-in" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+<symbol id="i-out" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></symbol>
+<symbol id="i-loop" viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></symbol>
+<symbol id="i-git" viewBox="0 0 24 24"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+<symbol id="i-ext" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></symbol>
+</defs></svg>
+
+<div class="topbar">
+  <a class="volta" href="index.html"><svg class="ic"><use href="#i-back"/></svg>Painel</a>
+  <h1>Documentação Técnica das Plataformas</h1>
+  <span style="margin-left:auto;font-size:.72rem;opacity:.85">Gerada a partir dos repositórios em 27/07/2026</span>
+</div>
+
+<div class="layout">
+<aside>
+  <div class="nav-label">Jurema</div>
+  <a class="j" href="#diagnostico-territorial">Diagnóstico Territorial</a>
+  <a class="j" href="#adicionalidade-hidrica">Adicionalidade Hídrica</a>
+  <a class="j" href="#criacao-rppn">Criação de RPPN</a>
+  <div class="nav-label">Suindara</div>
+  <a class="s" href="#fogo-infiltracao">Adicionalidade Hídrica (Fogo)</a>
+  <div class="nav-label">Cacimba</div>
+  <a class="c" href="#apcac-webmap">Webmap APCAC</a>
+  <a class="c" href="#apcac-nota">Nota Técnica APCAC</a>
+  <a class="c" href="#apcac-sobreposicao">Sobreposição APCAC</a>
+  <div class="nav-label">Executivo</div>
+  <a class="x" href="#editais">Curadoria de Editais</a>
+  <a class="x" href="#sistema-cerrado">Sistema Cerrado (Hub)</a>
+</aside>
+
+<main>
+
+<div class="aviso"><b>Nota de segurança:</b> esta documentação descreve os <b>modelos de acesso</b> (quem entra e como), nunca credenciais. Chaves e senhas vivem apenas nos cofres de cada host (Secrets do Streamlit Cloud, variáveis de ambiente do Vercel/Cloud Run) — jamais nos repositórios ou nesta página. Campos <span class="pend">[a confirmar]</span> aguardam validação do Yuri.</div>
+
+<!-- ============ 1. DIAGNÓSTICO TERRITORIAL ============ -->
+<article id="diagnostico-territorial" style="--acc:var(--j)">
+<div class="doc-head"><h2>Diagnóstico Territorial</h2><span class="prog">Jurema</span><a class="abrir" href="https://diagnostico-jurema.streamlit.app/" target="_blank">Abrir plataforma <svg class="ic"><use href="#i-ext"/></svg></a></div>
+<div class="doc-body">
+<div class="campo"><h3><svg class="ic"><use href="#i-target"/></svg>Objetivo</h3><p>Dashboard de diagnóstico territorial do Programa Jurema: caracteriza municípios de GO e DF (modo "universo GO+DF") com mapas e gráficos para orientar a atuação do programa, incluindo dados de ICMS Ecológico.</p></div>
+<div class="grid2">
+<div class="campo"><h3><svg class="ic"><use href="#i-cpu"/></svg>Arquitetura</h3><p>Aplicativo Streamlit em módulos separados por responsabilidade: interface (<code>dashboard.py</code>), análises (<code>analysis.py</code>), mapas (<code>maps.py</code>), fontes de dados (<code>data_sources.py</code>) e configuração (<code>config.py</code>). Abas 2–4 exibem animação de processamento enquanto calculam. Cache local de ICMS em <code>cache_icms/</code>.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-tree"/></svg>Estrutura</h3><ul><li><code>dashboard.py</code> — app e abas</li><li><code>analysis.py</code> / <code>maps.py</code> — cálculo e cartografia</li><li><code>data_sources.py</code> — ingestão de dados</li><li><code>cache_icms/</code> — cache do ICMS Ecológico</li><li><code>DEPLOY.md</code> — instruções de publicação</li><li>logos IC/Jurema (identidade oficial)</li></ul></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-tools"/></svg>Ferramentas</h3><p>Python + Streamlit; <code>numpy</code> com versão pinada (padrão anti-segfault do Streamlit Cloud, o mesmo do fogo-infiltração). Identidade visual IC (Londrina Solid + Montserrat).</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-server"/></svg>Hospedagem</h3><p>Streamlit Community Cloud (repositório privado <code>YuriSalmona/Diagnostico-Jurema</code>, branch <code>master</code>). Hiberna após inatividade — comportamento esperado do plano gratuito.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-lock"/></svg>Acessos</h3><p>Login Google nativo do Streamlit (<code>st.login</code>) restrito ao domínio <b>@cerrados.org</b>, verificado no app. OAuth Client do Google Cloud compartilhado entre os apps do IC; segredos no cofre do Streamlit Cloud.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-in"/></svg>Inputs</h3><p>Seleção de município/território (GO+DF); dados públicos municipais e de ICMS Ecológico carregados por <code>data_sources.py</code>.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-out"/></svg>Outputs</h3><p>Painéis interativos: mapas temáticos, gráficos e indicadores de diagnóstico por território.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-loop"/></svg>Rotinas</h3><p>Atualização de dados manual (novo commit). Monitor semanal do painel (segundas 9h) checa disponibilidade. <span class="pend">[Periodicidade de atualização das fontes: a confirmar]</span></p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-git"/></svg>Repositório e manutenção</h3><p><code>YuriSalmona/Diagnostico-Jurema</code> (privado, 28 commits). Manutenção via Claude Code (commits assinados com "claude"). Deploy automático a cada push.</p></div>
+</div>
+</div>
+</article>
+
+<!-- ============ 2. ADICIONALIDADE HÍDRICA ============ -->
+<article id="adicionalidade-hidrica" style="--acc:var(--j)">
+<div class="doc-head"><h2>Adicionalidade Hídrica</h2><span class="prog">Jurema</span><a class="abrir" href="https://app-yurisalmonas-projects.vercel.app/analise" target="_blank">Abrir plataforma <svg class="ic"><use href="#i-ext"/></svg></a></div>
+<div class="doc-body">
+<div class="campo"><h3><svg class="ic"><use href="#i-target"/></svg>Objetivo</h3><p>Quantificar a infiltração hídrica adicional gerada pela proteção de áreas do Cerrado (o "módulo hidrico" citado nas demais plataformas) — base para argumentos de PSA e adicionalidade em projetos de conservação.</p></div>
+<div class="grid2">
+<div class="campo"><h3><svg class="ic"><use href="#i-cpu"/></svg>Arquitetura</h3><p>Front-end web hospedado no Vercel (rota <code>/analise</code>) com processamento geoespacial no Google Earth Engine. Em produção, o padrão do módulo é rodar com service account no Cloud Run (<code>EE_USE_ADC=1</code>), conforme documentado no repositório do fogo-infiltração, que reutiliza esta metodologia. <span class="pend">[Repositório do front: a confirmar — não localizado na conta GitHub]</span></p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-tools"/></svg>Metodologia central</h3><div class="formula">Infiltração = P × Infrac × (1 − C) × Área</div><p style="margin-top:6px">P = precipitação média anual CHIRPS 2020–2024; C = Curve Number ANA 2022 (asset <code>projects/ee-yuri/assets/curve_number_ana_2022</code>); Infrac = fração de infiltração por classe MapBiomas (nível 2). Direção validada: floresta 0,30 &gt; pastagem 0,08.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-server"/></svg>Hospedagem</h3><p>Vercel (projeto na conta pessoal — URL padrão <code>app-yurisalmonas-projects.vercel.app</code>). Recomendado: renomear o projeto ou apontar subdomínio <code>.cerrados.org</code>.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-lock"/></svg>Acessos</h3><p>Login restrito a contas <b>@cerrados.org</b> (verificação de domínio). Acesso à plataforma somente pela equipe do IC.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-in"/></svg>Inputs</h3><p>Área de interesse (polígono) e parâmetros de análise; dados GEE: CHIRPS, MapBiomas uso do solo, Curve Number ANA.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-out"/></svg>Outputs</h3><p>Volume de infiltração adicional (m³/ML) atribuível à proteção da área analisada.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-loop"/></svg>Rotinas</h3><p>Sob demanda (equipe). Monitor semanal verifica disponibilidade. Atualização das bases GEE conforme novas coleções MapBiomas/CHIRPS.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-git"/></svg>Repositório e manutenção</h3><p><span class="pend">[a confirmar]</span> — provável projeto separado ou deploy direto no Vercel. Registrar aqui quando identificado.</p></div>
+</div>
+</div>
+</article>
+
+<!-- ============ 3. CRIAÇÃO DE RPPN ============ -->
+<article id="criacao-rppn" style="--acc:var(--j)">
+<div class="doc-head"><h2>Criação de RPPN</h2><span class="prog">Jurema</span><a class="abrir" href="https://plataforma-rppn.streamlit.app/" target="_blank">Abrir plataforma <svg class="ic"><use href="#i-ext"/></svg></a></div>
+<div class="doc-body">
+<div class="campo"><h3><svg class="ic"><use href="#i-target"/></svg>Objetivo</h3><p>Preparar o requerimento completo de uma RPPN sem precisar operar o SIMRPPN: dados cadastrais, perímetro georreferenciado com validação topológica, mapa técnico no padrão Jurema/IC, documentos e painel de administração das RPPNs.</p></div>
+<div class="grid2">
+<div class="campo"><h3><svg class="ic"><use href="#i-cpu"/></svg>Arquitetura</h3><p>App Streamlit com 7 abas + aba Administrar (<code>app.py</code>), apoiado em módulos: <code>geo_utils.py</code> (leitura/validação de geometria, tabela de vértices, aderência), <code>gerar_coordenadas.py</code> (polígono → Excel PONTO,X,Y em UTM SIRGAS 2000), <code>mapa_tecnico.py</code> (satélite, grid, memorial, contexto) e coletor local <code>coletar_rppns.py</code> (dados do SIMRPPN). Guia do usuário servido como HTML estático (<code>enableStaticServing</code>).</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-tree"/></svg>Estrutura</h3><ul><li><code>app.py</code> · <code>geo_utils.py</code> · <code>mapa_tecnico.py</code></li><li><code>gerar_coordenadas.py</code> · <code>coletar_rppns.py</code></li><li><code>static/guia_usuario.html</code> + <code>gerar_guia.py</code></li><li><code>assets/</code> — logos e malhas IBGE (UFs, municípios)</li><li><code>dados/</code> — RPPNs (fora do repositório em produção)</li></ul></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-tools"/></svg>Ferramentas</h3><p>Streamlit, Folium/streamlit-folium, GeoPandas 1.1.4, Shapely 2, pyproj 3.7.2, pyogrio, openpyxl, Matplotlib, Pillow; Authlib+httpx para o login (fase 2); numpy 2.5.0 pinado.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-server"/></svg>Hospedagem</h3><p>Streamlit Community Cloud, repositório público <code>YuriSalmona/plataforma-rppn</code>. Config sem porta fixa; deploy a cada push.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-lock"/></svg>Acessos</h3><p>Fase 1 pública, sem login. Fase 2 prevista: login Google restrito a @cerrados.org (modelo já preparado em <code>secrets.toml.example</code>). Dados pessoais de proprietários ficam FORA do repositório enquanto o app é público — cuidado LGPD documentado no README.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-in"/></svg>Inputs</h3><p>Dados cadastrais do proprietário e da reserva; perímetro por desenho no mapa, arquivo (shapefile/GeoJSON) ou tabela de vértices, com aderência de vértices e validação topológica.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-out"/></svg>Outputs</h3><p>Requerimento pronto para o SIMRPPN, planilha de coordenadas UTM SIRGAS 2000, mapa técnico padrão Jurema/IC e memorial descritivo; saídas gravadas em <code>saidas/</code>.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-loop"/></svg>Rotinas</h3><p><code>coletar_rppns.py</code> roda localmente para atualizar a base de RPPNs do SIMRPPN. Monitor semanal checa disponibilidade.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-git"/></svg>Repositório e manutenção</h3><p><code>YuriSalmona/plataforma-rppn</code> (público). Nota de deploy: numpy pinado evita segfault em rebuild do ambiente.</p></div>
+</div>
+</div>
+</article>
+
+<!-- ============ 4. FOGO & INFILTRAÇÃO ============ -->
+<article id="fogo-infiltracao" style="--acc:var(--s)">
+<div class="doc-head"><h2>Adicionalidade Hídrica — Fogo &amp; Infiltração</h2><span class="prog">Suindara</span><a class="abrir" href="https://fogo-infiltracao.streamlit.app/" target="_blank">Abrir plataforma <svg class="ic"><use href="#i-ext"/></svg></a></div>
+<div class="doc-body">
+<div class="campo"><h3><svg class="ic"><use href="#i-target"/></svg>Objetivo</h3><p>Quantificar a infiltração hídrica adicional em áreas de <b>incêndio evitado</b> (manejo integrado do fogo no Cerrado) — conectando o MIF do Programa Suindara ao argumento de adicionalidade hídrica.</p></div>
+<div class="grid2">
+<div class="campo"><h3><svg class="ic"><use href="#i-cpu"/></svg>Arquitetura</h3><p>Streamlit + Google Earth Engine. Análises 7a–7e: cicatrizes de fogo (MapBiomas Fogo mensal), gráfico por ano com tendência, mapa de recorrência (tile raster server-side), retângulo de "área poupada" (lados = √área e 0,35 m/s × tempo poupado) e agrupamento de focos FIRMS em incêndios via DBSCAN (2,5 km + gap de 3 dias) com vento ERA5-Land no popup.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-tools"/></svg>Metodologia central</h3><div class="formula">Adicionalidade = Infiltração(proteção) − Infiltração(sem proteção)<br>Infiltração = P × Infrac × (1 − C) × Área</div><p style="margin-top:6px">Área queimada infiltra ~35% menos (Miranda et al. 2010; Resende et al. 2015). Velocidade de propagação 0,35 m/s (Castro &amp; Kauffman 1998 e outros). Validado na Chapada dos Veadeiros 2024: 4.247 ha poupados → 562.331 m³ de adicionalidade.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-in"/></svg>Inputs</h3><ul><li>Área monitorada (shapefile zipado — universo amostral)</li><li>Meses de queima prescrita (excluídos da análise)</li><li>Meses e ano de análise (2000 → último MapBiomas Fogo)</li><li>Tempo poupado (1–24 h)</li></ul></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-out"/></svg>Outputs</h3><p>Hectares queimados vs. histórico, mapas de recorrência e de incêndios individualizados, área poupada (ha) e volume de infiltração adicional (m³/ML). Fase futura: relatório PDF/GeoJSON.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-server"/></svg>Hospedagem</h3><p>Streamlit Community Cloud (repo privado <code>YuriSalmona/fogo-infiltracao</code>). Em produção: Cloud Run com service account e <code>EE_USE_ADC=1</code> (mesmo padrão do módulo hidrico).</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-lock"/></svg>Acessos</h3><p>GEE autenticado por <code>earthengine authenticate</code> (dev) ou service account (produção). Login de usuários no mesmo OAuth Client compartilhado do IC. Assets no projeto <code>ee-yuri</code>.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-loop"/></svg>Rotinas</h3><p>Análise sob demanda (botão Analisar). Dados-fonte atualizam com as coleções (MapBiomas Fogo, CHIRPS, FIRMS, ERA5-Land). Monitor semanal checa disponibilidade.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-alert"/></svg>Validações pendentes</h3><ul><li>Confirmar qual coleção MapBiomas Fogo foi usada (tenta 4 → 3.1 → 3)</li><li>Validar codificação do pixel mensal (valor = mês) contra o painel público</li><li>Rodar com queima real conhecida antes de usar em relatório</li></ul></div>
+</div>
+</div>
+</article>
+
+<!-- ============ 5. WEBMAP APCAC ============ -->
+<article id="apcac-webmap" style="--acc:var(--c)">
+<div class="doc-head"><h2>Webmap APCAC</h2><span class="prog">Cacimba · MMA + IPH/UFRGS</span><a class="abrir" href="https://yurisalmona.github.io/apcac-webmap/" target="_blank">Abrir plataforma <svg class="ic"><use href="#i-ext"/></svg></a></div>
+<div class="doc-body">
+<div class="campo"><h3><svg class="ic"><use href="#i-target"/></svg>Objetivo</h3><p>Mapa interativo das Áreas Prioritárias para Conservação de Água do Cerrado (APCAC), produzido para a solicitação IC26017 (apresentação ao MMA), com classificação de prioridade de ação e risco hidrológico em 3 escalas.</p></div>
+<div class="grid2">
+<div class="campo"><h3><svg class="ic"><use href="#i-cpu"/></svg>Arquitetura</h3><p>Site estático puro — sem servidor de aplicação, sem build. Dados em <b>PMTiles</b> consultados por HTTP Range requests: abrir o mapa custa ~40 KB, não os 45 MB do repositório. Estratégia raster-na-visão-geral (z3–9) e vetor-no-detalhe (z10, microbacias clicáveis; overzoom sem tiles z11+). <code>limites.pmtiles</code> traz polígonos com contorno desenhado e fill invisível para receber cliques. Os 3 escopos (Cerrado, RHI, UPH) são a mesma geometria com ranqueamento por quantis 5/5/30/60 → classes A/B/C/X.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-tree"/></svg>Estrutura</h3><ul><li><code>index.html</code> + <code>lib/</code> (MapLibre GL, pmtiles.js)</li><li>4 PMTiles raster/vetor + <code>limites.pmtiles</code></li><li><code>legenda.json</code> (20 classes) · <code>estatisticas.json</code> (154 territórios)</li><li>Scripts de preparo: <code>recorta_bioma.py</code> (STRtree — de 8h para minutos), <code>gera_estatisticas.py</code> (área geodésica pós-recorte), <code>gera_legenda.py</code></li></ul></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-tools"/></svg>Ferramentas</h3><p>MapLibre GL JS, PMTiles, Python (GeoPandas/Shapely com índice espacial STRtree) para o pipeline de dados.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-server"/></svg>Hospedagem</h3><p>GitHub Pages (<code>YuriSalmona/apcac-webmap</code>, público). Atenção documentada: o host PRECISA suportar Range requests — um host que devolva o arquivo inteiro quebra o mapa silenciosamente.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-lock"/></svg>Acessos</h3><p>Público, sem autenticação.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-in"/></svg>Inputs</h3><p>Navegação e clique do usuário; malha BHO de microbacias (~201 mil polígonos) pré-processada no pipeline.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-out"/></svg>Outputs</h3><p>Classificação por microbacia (prioridade, ação, risco) nas 3 escalas; estatísticas de área por classe para cada território.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-loop"/></svg>Rotinas</h3><p>Estático: atualização apenas quando o estudo APCAC for revisado (rodar o pipeline Python e commitar novos PMTiles). Monitor semanal checa disponibilidade.</p></div>
+</div>
+</div>
+</article>
+
+<!-- ============ 6. NOTA TÉCNICA APCAC ============ -->
+<article id="apcac-nota" style="--acc:var(--c)">
+<div class="doc-head"><h2>Nota Técnica APCAC</h2><span class="prog">Cacimba · MMA + IPH/UFRGS</span><a class="abrir" href="https://yurisalmona.github.io/apcac-nota/" target="_blank">Abrir plataforma <svg class="ic"><use href="#i-ext"/></svg></a></div>
+<div class="doc-body">
+<div class="campo"><h3><svg class="ic"><use href="#i-target"/></svg>Objetivo</h3><p>Publicação web da nota técnica do estudo APCAC: metodologia, leitura das 11 regiões hidrográficas e indicações de proteção, restauração, comando-controle e manejo, com link para o webmap.</p></div>
+<div class="grid2">
+<div class="campo"><h3><svg class="ic"><use href="#i-cpu"/></svg>Arquitetura</h3><p>Documento HTML único autocontido (~4,3 MB, imagens embutidas), sem JavaScript de aplicação — máxima durabilidade e portabilidade. Referências linkadas a fontes primárias (MapBiomas, TerraBrasilis/INPE, Nature Communications, Embrapa).</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-tools"/></svg>Ferramentas</h3><p>HTML/CSS puro; tipografia Jost + Montserrat (Google Fonts).</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-server"/></svg>Hospedagem</h3><p>GitHub Pages (<code>YuriSalmona/apcac-nota</code>, público).</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-lock"/></svg>Acessos</h3><p>Público, sem autenticação.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-in"/></svg>Inputs / <svg class="ic"><use href="#i-out"/></svg>Outputs</h3><p>Documento de leitura (sem entradas do usuário). Output: a própria nota técnica citável. Recomendação registrada no painel: gerar versão PDF com DOI (Zenodo) para citação acadêmica.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-loop"/></svg>Rotinas</h3><p>Estático; revisão apenas em nova edição do estudo. Monitor semanal checa disponibilidade.</p></div>
+</div>
+</div>
+</article>
+
+<!-- ============ 7. SOBREPOSIÇÃO APCAC ============ -->
+<article id="apcac-sobreposicao" style="--acc:var(--c)">
+<div class="doc-head"><h2>Sobreposição de Área com APCAC ("Está dentro?")</h2><span class="prog">Cacimba · MMA + IPH/UFRGS</span><a class="abrir" href="https://yurisalmona.github.io/apcac-analise/" target="_blank">Abrir plataforma <svg class="ic"><use href="#i-ext"/></svg></a></div>
+<div class="doc-body">
+<div class="campo"><h3><svg class="ic"><use href="#i-target"/></svg>Objetivo</h3><p>Responder "minha área está dentro de uma APCAC?": o usuário envia um shapefile zipado ou desenha um polígono e recebe a classe, o risco e a ação recomendada nas 3 escalas, com leitura cartográfica e interpretação técnica (inclusive o texto jurídico sobre áreas de recarga × descarga e APPs da Lei 12.651/2012).</p></div>
+<div class="grid2">
+<div class="campo"><h3><svg class="ic"><use href="#i-cpu"/></svg>Arquitetura</h3><p>Página estática com todo o processamento no navegador: <code>shpjs</code> lê o shapefile, <code>turf.js</code> faz interseção e cálculo de área contra os tiles vetoriais z10 do estudo (mesmos PMTiles do webmap, lidos via <code>pbf</code> + DecompressionStream gzip). Sem servidor de processamento — a geometria do usuário não sai do navegador. Registro administrativo de consultas via Supabase (BaaS).</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-tools"/></svg>Ferramentas</h3><p>Leaflet 1.9 + leaflet-draw, shpjs 6, Turf 6.5, pmtiles 3.2, pbf, Supabase JS 2. Identidade IC (Londrina Solid + Montserrat).</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-server"/></svg>Hospedagem</h3><p>GitHub Pages (<code>YuriSalmona/apcac-analise</code>, público); consome os PMTiles hospedados no repositório do webmap. Há uma <code>v2/</code> em preparação.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-lock"/></svg>Acessos</h3><p>Consulta pública sem login. Área administrativa (registro de consultas) autenticada via Supabase. Privacidade: o polígono do usuário é processado localmente no navegador.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-in"/></svg>Inputs</h3><p>Shapefile .zip (com .shp, .shx, .dbf e .prj) ou polígono desenhado no mapa.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-out"/></svg>Outputs</h3><p>Classe APCAC, risco e ação recomendada por escala (bioma, RHI, UPH), com percentuais de sobreposição e interpretação técnica. Recomendações registradas: aceitar GeoJSON/KML e gerar relatório PDF.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-loop"/></svg>Rotinas</h3><p>Estático; acompanha as revisões dos PMTiles do webmap. Monitor semanal checa disponibilidade.</p></div>
+</div>
+</div>
+</article>
+
+<!-- ============ 8. EDITAIS ============ -->
+<article id="editais" style="--acc:var(--x)">
+<div class="doc-head"><h2>Curadoria de Editais</h2><span class="prog">Executivo</span><a class="abrir" href="https://plataforma-editais-ic.vercel.app/" target="_blank">Abrir plataforma <svg class="ic"><use href="#i-ext"/></svg></a></div>
+<div class="doc-body">
+<div class="campo"><h3><svg class="ic"><use href="#i-target"/></svg>Objetivo</h3><p>Buscar, analisar e pré-preencher editais de financiamento para o IC: curadoria com classificação de aderência (Alta/Média/Baixa), fluxo de trabalho, pré-preenchimento de propostas e gestão de documentos.</p></div>
+<div class="grid2">
+<div class="campo"><h3><svg class="ic"><use href="#i-cpu"/></svg>Arquitetura</h3><p>Aplicação Next.js (App Router) em TypeScript com banco de dados via <b>Prisma ORM</b>. Módulos: Achados (dashboard de editais com busca e filtros de aderência/prazo/tema), Fluxo, Pré-preenchimento, Documentos e, em Admin, Configurações e Usuários. Funções "Sync Sheets" (integração Google Sheets) e "Rodar Busca" (curadoria de novos editais).</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-tree"/></svg>Estrutura</h3><ul><li><code>src/</code> — app e componentes</li><li><code>prisma/</code> — schema do banco</li><li><code>SETUP.md</code> / <code>DEPLOY.md</code> — instruções (URL de produção registrada)</li><li><code>.env.local.example</code> — modelo de variáveis de ambiente</li></ul></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-tools"/></svg>Ferramentas</h3><p>Next.js, TypeScript, Tailwind CSS, Prisma, fonte Inter. <span class="pend">[Banco em produção: a confirmar — Vercel Postgres/Neon/Supabase]</span></p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-server"/></svg>Hospedagem</h3><p>Vercel (produção com deploy automático por push — 7 deployments). Repositório privado <code>YuriSalmona/plataforma-editais-ic</code>.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-lock"/></svg>Acessos</h3><p>Gestão de usuários própria (módulo Usuários, área Admin). Variáveis sensíveis em <code>.env</code> no Vercel. <span class="pend">[Modelo de login: a confirmar]</span></p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-in"/></svg>Inputs</h3><p>Editais captados pela busca/curadoria; dados institucionais do IC para pré-preenchimento; planilhas Google (Sync Sheets).</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-out"/></svg>Outputs</h3><p>Base curada de editais com aderência e prazos, notas por edital, propostas pré-preenchidas e documentos organizados.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-loop"/></svg>Rotinas</h3><p>"Rodar Busca" sob demanda; "Sync Sheets" para sincronizar planilhas. Recomendação registrada: alerta automático de prazos próximos. Monitor semanal checa disponibilidade.</p></div>
+</div>
+</div>
+</article>
+
+<!-- ============ 9. SISTEMA CERRADO ============ -->
+<article id="sistema-cerrado" style="--acc:var(--x)">
+<div class="doc-head"><h2>Sistema Cerrado (Hub)</h2><span class="prog">Executivo</span><a class="abrir" href="https://sistema-cerrado.streamlit.app/" target="_blank">Abrir plataforma <svg class="ic"><use href="#i-ext"/></svg></a></div>
+<div class="doc-body">
+<div class="campo"><h3><svg class="ic"><use href="#i-target"/></svg>Objetivo</h3><p>Hub de dashboards e plataformas do IC — "Rumo a um milhão de hectares". Visão Geral dos Programas (metas, resultados e OKRs) no topo e colunas de acesso (link tree) por programa: Jurema, Suindara, Povos do Cerrado, Cacimba, Elos do Cerrado e Executivo. É a fonte oficial de agrupamento do painel de projetos.</p></div>
+<div class="grid2">
+<div class="campo"><h3><svg class="ic"><use href="#i-cpu"/></svg>Arquitetura</h3><p>App Streamlit de página única: <code>app.py</code> renderiza; <b>todo o conteúdo é editável em <code>dados.py</code></b> (<code>VISAO_GERAL</code>, <code>HECTARES_POR_PROGRAMA</code>, <code>OKRS</code>, <code>PROGRAMAS</code>). Publicar uma ferramenta nova = trocar <code>None</code> pela URL na lista do programa — o botão sai de "em breve" automaticamente. Sem secrets, roda em modo dev sem login.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-tools"/></svg>Ferramentas</h3><p>Python + Streamlit. Identidade oficial IC (verde #004F23, bege, laranja como acento; Londrina Solid + Montserrat); cores por programa derivadas do verde/bege, só para wayfinding.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-server"/></svg>Hospedagem</h3><p>Streamlit Community Cloud (repo privado <code>YuriSalmona/sistema-cerrado</code>). App público no host — o controle de acesso real é o login do próprio app (se privado no host, colegas são barrados antes da tela de login).</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-lock"/></svg>Acessos</h3><p>Login Google restrito a <b>@cerrados.org</b>. OAuth Client reutilizado dos outros apps do IC — só muda o <code>redirect_uri</code> por app (registrado no Google Cloud Console).</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-in"/></svg>Inputs</h3><p>Edições em <code>dados.py</code> (metas, OKRs, URLs). <span class="pend">[Números atuais são placeholders até conectar o dashboard-fonte]</span></p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-out"/></svg>Outputs</h3><p>Visão executiva de metas/OKRs e navegação central para todas as plataformas por programa.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-loop"/></svg>Rotinas</h3><p>Atualização manual em <code>dados.py</code> a cada nova ferramenta ou revisão de OKRs. Monitor semanal checa disponibilidade. Sugestão registrada: migrar para host estático (não hiberna).</p></div>
+</div>
+</div>
+</article>
+
+<footer>Instituto Cerrados · Documentação gerada com Claude Cowork a partir dos repositórios (27/07/2026) · para atualizar: "atualize a documentação dos projetos"</footer>
+</main>
+</div>
+</body>
+</html>
