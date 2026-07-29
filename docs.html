@@ -9,7 +9,7 @@
 <style>
 :root{--verde:#0F6E56;--verde-esc:#0A5A45;--laranja:#E64A19;--ok:#4CAF50;--warn:#FF7043;
 --bg:#F4F4F4;--borda:#E5E7EB;--txt:#111827;--txt2:#6B7280;
---j:#14532D;--s:#A8842C;--c:#0F6E56;--x:#1F2937}
+--j:#14532D;--s:#A8842C;--p:#7A6A2F;--c:#0F6E56;--x:#1F2937}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',ui-sans-serif,sans-serif;background:var(--bg);color:var(--txt);font-size:14px}
@@ -23,7 +23,7 @@ aside{width:250px;flex:none;padding:20px 14px;position:sticky;top:58px;height:ca
 .nav-label{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--txt2);padding:10px 8px 4px}
 aside a{display:block;color:var(--txt);text-decoration:none;font-size:.8rem;font-weight:500;padding:7px 10px;border-radius:8px;border-left:3px solid transparent}
 aside a:hover{background:#fff}
-aside a.j{border-left-color:var(--j)}aside a.s{border-left-color:var(--s)}aside a.c{border-left-color:var(--c)}aside a.x{border-left-color:var(--x)}
+aside a.j{border-left-color:var(--j)}aside a.s{border-left-color:var(--s)}aside a.p{border-left-color:var(--p)}aside a.c{border-left-color:var(--c)}aside a.x{border-left-color:var(--x)}
 main{flex:1;min-width:0;padding:22px 26px 60px}
 article{background:#fff;border:1px solid var(--borda);border-radius:12px;margin-bottom:26px;overflow:hidden;scroll-margin-top:70px}
 .doc-head{padding:16px 22px;border-top:4px solid var(--acc,var(--verde));border-bottom:1px solid var(--borda);display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
@@ -66,7 +66,7 @@ footer{text-align:center;padding:10px 20px 30px;font-size:.7rem;color:var(--txt2
 <div class="topbar">
   <a class="volta" href="index.html"><svg class="ic"><use href="#i-back"/></svg>Painel</a>
   <h1>Documentação Técnica das Plataformas</h1>
-  <span style="margin-left:auto;font-size:.72rem;opacity:.85">Gerada a partir dos repositórios em 27/07/2026</span>
+  <span style="margin-left:auto;font-size:.72rem;opacity:.85">Gerada a partir dos repositórios em 28/07/2026</span>
 </div>
 
 <div class="layout">
@@ -77,6 +77,9 @@ footer{text-align:center;padding:10px 20px 30px;font-size:.7rem;color:var(--txt2
   <a class="j" href="#criacao-rppn">Criação de RPPN</a>
   <div class="nav-label">Suindara</div>
   <a class="s" href="#fogo-infiltracao">Adicionalidade Hídrica (Fogo)</a>
+  <div class="nav-label">Povos do Cerrado</div>
+  <a class="p" href="#povoado-consulta">Consulta Territorial Povoado</a>
+  <a class="p" href="#povos-metricas">Métricas de Resultados</a>
   <div class="nav-label">Cacimba</div>
   <a class="c" href="#apcac-webmap">Webmap APCAC</a>
   <a class="c" href="#apcac-nota">Nota Técnica APCAC</a>
@@ -160,6 +163,40 @@ footer{text-align:center;padding:10px 20px 30px;font-size:.7rem;color:var(--txt2
 <div class="campo"><h3><svg class="ic"><use href="#i-lock"/></svg>Acessos</h3><p>GEE autenticado por <code>earthengine authenticate</code> (dev) ou service account (produção). Login de usuários no mesmo OAuth Client compartilhado do IC. Assets no projeto <code>ee-yuri</code>.</p></div>
 <div class="campo"><h3><svg class="ic"><use href="#i-loop"/></svg>Rotinas</h3><p>Análise sob demanda (botão Analisar). Dados-fonte atualizam com as coleções (MapBiomas Fogo, CHIRPS, FIRMS, ERA5-Land). Monitor semanal checa disponibilidade.</p></div>
 <div class="campo"><h3><svg class="ic"><use href="#i-alert"/></svg>Validações pendentes</h3><ul><li>Confirmar qual coleção MapBiomas Fogo foi usada (tenta 4 → 3.1 → 3)</li><li>Validar codificação do pixel mensal (valor = mês) contra o painel público</li><li>Rodar com queima real conhecida antes de usar em relatório</li></ul></div>
+</div>
+</div>
+</article>
+
+<!-- ============ POVOS: CONSULTA TERRITORIAL POVOADO ============ -->
+<article id="povoado-consulta" style="--acc:var(--p)">
+<div class="doc-head"><h2>Consulta Territorial Povoado</h2><span class="prog">Povos do Cerrado</span><a class="abrir" href="https://yurisalmona.github.io/povoado-consulta/" target="_blank">Abrir plataforma <svg class="ic"><use href="#i-ext"/></svg></a></div>
+<div class="doc-body">
+<div class="campo"><h3><svg class="ic"><use href="#i-target"/></svg>Objetivo</h3><p>Consultar as comunidades tradicionais do Cerrado da base <b>Plataforma Povoado</b> (iniciativa Tô no Mapa) por território — filtros de estado/município, polígono desenhado no mapa ou shapefile/GeoJSON enviado — e gerar relatório baixável com lista de comunidades, texto-resumo e gráficos. Análogo territorial da "Sobreposição de Área com APCAC", aplicado a PCTs.</p></div>
+<div class="grid2">
+<div class="campo"><h3><svg class="ic"><use href="#i-cpu"/></svg>Arquitetura</h3><p>Site 100% estático (HTML+CSS+JS puro, sem build e sem backend): dados embutidos extraídos da API da Plataforma Povoado e pré-processados por <code>preprocess.py</code> (shapely). Motor de interseção espacial próprio em JavaScript (bbox + ray casting + interseção de segmentos, ~50 ms para 1.435 municípios). Guia do usuário em modal.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-tree"/></svg>Estrutura</h3><ul><li><code>index.html</code> · <code>styles.css</code> · <code>app.js</code></li><li><code>dados/</code> — municipios.geojson, comunidades.json, cerrado.geojson + brutos da API</li><li><code>vendor/</code> — Leaflet 1.9.4, Leaflet.draw 1.0.4 (pt-BR), shpjs 6.1</li><li><code>assets/</code> — logos oficiais Tô no Mapa/realizadores</li><li><code>preprocess.py</code> — regenera os dados a partir da API</li></ul></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-tools"/></svg>Dados</h3><p>6.767 comunidades em 1.435 municípios de 13 UFs (extração 28/07/2026, contagens validadas contra o site oficial). Comunidades vinculadas a municípios, <b>sem coordenada própria</b>: consultas espaciais retornam os municípios interceptados — ressalva documentada no relatório e no guia. Segmentos (28), MATOPIBA e referências bibliográficas por comunidade.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-server"/></svg>Hospedagem</h3><p>GitHub Pages, repositório público <code>YuriSalmona/povoado-consulta</code> (branch <code>main</code>, raiz, <code>.nojekyll</code>). Basemap CARTO Positron. Nunca hiberna.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-lock"/></svg>Acessos</h3><p>Público, sem login — dados já públicos na origem.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-in"/></svg>Inputs</h3><p>Estados/municípios (autocomplete), polígono/retângulo desenhado, shapefile .zip ou GeoJSON (reprojeção automática via .prj); refino por segmento, nome e MATOPIBA.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-out"/></svg>Outputs</h3><p>Relatório com cards, texto-resumo citável, 4 gráficos e tabela ordenável; downloads: CSV das comunidades (com referências), GeoJSON dos municípios do resultado, PDF via impressão.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-loop"/></svg>Rotinas</h3><p>Base estática — atualizar rebaixando os JSON da API e rodando <code>preprocess.py</code> (documentado no README). Monitor semanal checa disponibilidade.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-git"/></svg>Repositório e manutenção</h3><p><code>YuriSalmona/povoado-consulta</code> (público). Local: <code>C:\projetos\cerrado-gee\povoado-consulta</code>. Manutenção via Claude Code; deploy automático a cada push (Pages).</p></div>
+</div>
+</div>
+</article>
+
+<!-- ============ POVOS: MÉTRICAS DE RESULTADOS ============ -->
+<article id="povos-metricas" style="--acc:var(--p)">
+<div class="doc-head"><h2>Métricas de Resultados</h2><span class="prog">Povos do Cerrado</span><a class="abrir" href="https://povos-cerrado.streamlit.app/" target="_blank">Abrir plataforma <svg class="ic"><use href="#i-ext"/></svg></a></div>
+<div class="doc-body">
+<div class="campo"><h3><svg class="ic"><use href="#i-target"/></svg>Objetivo</h3><p>Painel de resultados e impactos do programa Povos do Cerrado: 273 PCTs no Cerrado (208 mapeadas com polígono + 65 sem polígono) — os hectares reportados são piso, não total, pela incompletude do mapeamento.</p></div>
+<div class="grid2">
+<div class="campo"><h3><svg class="ic"><use href="#i-cpu"/></svg>Arquitetura</h3><p>App Streamlit com identidade visual do programa (cores do logo: <code>#5F6813</code>/<code>#ED8600</code>/<code>#472902</code>). <span class="pend">[Detalhamento de módulos: a completar]</span></p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-server"/></svg>Hospedagem</h3><p>Streamlit Community Cloud, repositório <code>YuriSalmona/povos-cerrado</code>. Hiberna após inatividade (plano gratuito).</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-lock"/></svg>Acessos</h3><p>Login Google previsto — <span class="pend">pendente cadastrar a URI de redirect no Google Console</span>.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-out"/></svg>Outputs</h3><p>Indicadores e visualizações de resultados/impactos do programa para relatórios e captação.</p></div>
+<div class="campo"><h3><svg class="ic"><use href="#i-git"/></svg>Repositório e manutenção</h3><p><code>YuriSalmona/povos-cerrado</code> (criado via API GitHub). Manutenção via Claude Code; deploy automático a cada push.</p></div>
 </div>
 </div>
 </article>

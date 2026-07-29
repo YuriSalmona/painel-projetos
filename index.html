@@ -141,30 +141,30 @@ button.pill:disabled{opacity:.6;cursor:wait}
     <button class="nav-item on" data-f="todos"><svg class="ic"><use href="#i-grid"/></svg>Todos os projetos</button>
     <button class="nav-item" data-f="jurema"><svg class="ic"><use href="#i-leaf"/></svg>Jurema<span class="dot" style="background:var(--j)"></span></button>
     <button class="nav-item" data-f="suindara"><svg class="ic"><use href="#i-feather"/></svg>Suindara<span class="dot" style="background:var(--s)"></span></button>
+    <button class="nav-item" data-f="povos"><svg class="ic"><use href="#i-users"/></svg>Povos do Cerrado<span class="dot" style="background:var(--p)"></span></button>
     <button class="nav-item" data-f="cacimba"><svg class="ic"><use href="#i-drop"/></svg>Cacimba<span class="dot" style="background:var(--c)"></span></button>
     <button class="nav-item" data-f="executivo"><svg class="ic"><use href="#i-brief"/></svg>Executivo<span class="dot" style="background:var(--x)"></span></button>
     <div class="nav-label">Em estruturação</div>
-    <button class="nav-item soon"><svg class="ic"><use href="#i-users"/></svg>Povos do Cerrado<span class="soon-tag">em breve</span></button>
     <button class="nav-item soon"><svg class="ic"><use href="#i-link"/></svg>Elos do Cerrado<span class="soon-tag">em breve</span></button>
   </nav>
-  <div class="side-foot">Rumo a um milhão de hectares<br>Fonte: sistema-cerrado.streamlit.app + verificação de 27/07/2026</div>
+  <div class="side-foot">Rumo a um milhão de hectares<br>Fonte: sistema-cerrado.streamlit.app + verificação de 28/07/2026</div>
 </aside>
 
 <main>
 <div class="topbar">
   <h1>Visão geral das plataformas</h1>
   <div class="right">
-    <span class="pill" id="last-check"><svg class="ic"><use href="#i-clock"/></svg>Verificado em 27/07/2026</span>
+    <span class="pill" id="last-check"><svg class="ic"><use href="#i-clock"/></svg>Verificado em 28/07/2026</span>
     <span class="pill"><svg class="ic"><use href="#i-activity"/></svg>Monitor semanal ativo</span>
     <button class="pill" id="btn-refresh" title="Verificar agora, direto do seu navegador, se cada plataforma responde"><svg class="ic" id="refresh-ic"><use href="#i-refresh"/></svg>Atualizar</button>
   </div>
 </div>
 
 <div class="banner">
-  <span class="big">9<small>plataformas</small></span>
-  <span class="item"><span class="dot d-ok"></span>6 no ar</span>
-  <span class="item"><span class="dot d-warn"></span>3 não verificáveis (Streamlit)</span>
-  <span class="item"><svg class="ic"><use href="#i-activity"/></svg>9 monitoradas</span>
+  <span class="big">11<small>plataformas</small></span>
+  <span class="item"><span class="dot d-ok"></span>7 no ar</span>
+  <span class="item"><span class="dot d-warn"></span>4 não verificáveis (Streamlit)</span>
+  <span class="item"><svg class="ic"><use href="#i-activity"/></svg>11 monitoradas</span>
   <span class="item"><svg class="ic"><use href="#i-users"/></svg>0 com analytics de uso</span>
 </div>
 
@@ -268,6 +268,56 @@ button.pill:disabled{opacity:.6;cursor:wait}
       </ul></div></details>
     </div>
     <div class="card-foot"><a class="btn btn-pri" href="https://fogo-infiltracao.streamlit.app/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a><a class="btn btn-sec" href="docs.html#fogo-infiltracao"><svg class="ic"><use href="#i-file"/></svg>Docs</a></div>
+  </div>
+
+  </div>
+</section>
+
+<!-- ================= POVOS DO CERRADO ================= -->
+<section data-g="povos" style="--acc:var(--p)">
+  <div class="sec-head"><span class="swatch" style="background:var(--p)"></span><h2>Programa Povos do Cerrado</h2><span class="count">2 plataformas</span></div>
+  <div class="grid">
+
+  <div class="card" style="--acc:var(--p)">
+    <div class="card-top">
+      <h3><svg class="ic"><use href="#i-search"/></svg>Consulta Territorial Povoado</h3>
+      <div class="badges">
+        <span class="badge"><span class="dot d-ok"></span>No ar</span>
+        <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Consulta às 6.767 comunidades tradicionais da base Povoado (Tô no Mapa) por filtros, polígono desenhado ou shapefile; gera relatório com texto-resumo, gráficos e downloads (CSV, GeoJSON, PDF). Identidade visual Tô no Mapa.</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b>Publicada em 28/07/2026 com guia do usuário integrado</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-zap"/></svg><div><b>Skill associada</b>geospatial-platform-patterns (ativa)</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b>GitHub: yurisalmona/povoado-consulta · PC: C:\projetos\cerrado-gee\povoado-consulta</div></div>
+      <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul>
+        <li>Rotina de atualização periódica da base (a extração é estática, de 28/07/2026).</li>
+        <li>Analytics gratuito (GoatCounter) para medir uso real.</li>
+      </ul></div></details>
+    </div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://yurisalmona.github.io/povoado-consulta/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a><a class="btn btn-sec" href="docs.html#povoado-consulta"><svg class="ic"><use href="#i-file"/></svg>Docs</a></div>
+  </div>
+
+  <div class="card" style="--acc:var(--p)">
+    <div class="card-top">
+      <h3><svg class="ic"><use href="#i-users"/></svg>Métricas de Resultados</h3>
+      <div class="badges">
+        <span class="badge"><span class="dot d-warn"></span>Não verificável (Streamlit)</span>
+        <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Painel de resultados e impactos do programa Povos do Cerrado: 273 PCTs no Cerrado (208 mapeadas + 65 sem polígono) — hectares como piso, não total.</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b>Publicado em povos-cerrado.streamlit.app <span class="pend">(login Google: falta cadastrar a URI de redirect)</span></div></div>
+      <div class="campo"><svg class="ic"><use href="#i-zap"/></svg><div><b>Skill associada</b>instituto-cerrados-branding (ativa)</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b>GitHub: yurisalmona/povos-cerrado · Drive <span class="pend">a registrar</span></div></div>
+      <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul>
+        <li>Concluir o cadastro da URI de redirect no Google para ativar o login.</li>
+        <li>Hospedagem sem hibernação + analytics, como os demais Streamlit.</li>
+      </ul></div></details>
+    </div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://povos-cerrado.streamlit.app/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a><a class="btn btn-sec" href="docs.html#povos-metricas"><svg class="ic"><use href="#i-file"/></svg>Docs</a></div>
   </div>
 
   </div>
@@ -380,7 +430,7 @@ button.pill:disabled{opacity:.6;cursor:wait}
     </div>
     <div class="card-body">
       <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Portal central "Rumo a um milhão de hectares": organiza todas as plataformas por programa (Jurema, Suindara, Povos, Cacimba, Elos, Executivo) e é a fonte oficial de agrupamento deste painel.</div></div>
-      <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b>Hub publicado com 6 programas e 8 plataformas linkadas</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b>Hub publicado com 6 programas e 9 plataformas linkadas</div></div>
       <div class="campo"><svg class="ic"><use href="#i-zap"/></svg><div><b>Skill associada</b>instituto-cerrados-branding (ativa)</div></div>
       <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b><span class="pend">A registrar</span></div></div>
       <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul>
@@ -424,6 +474,8 @@ const PROJECTS=[
  {url:'https://app-yurisalmonas-projects.vercel.app/analise',kind:'ext'},
  {url:'https://plataforma-rppn.streamlit.app/',kind:'streamlit'},
  {url:'https://fogo-infiltracao.streamlit.app/',kind:'streamlit'},
+ {url:'https://yurisalmona.github.io/povoado-consulta/',kind:'same'},
+ {url:'https://povos-cerrado.streamlit.app/',kind:'streamlit'},
  {url:'https://yurisalmona.github.io/apcac-webmap/',kind:'same'},
  {url:'https://yurisalmona.github.io/apcac-nota/',kind:'same'},
  {url:'https://yurisalmona.github.io/apcac-analise/',kind:'same'},
