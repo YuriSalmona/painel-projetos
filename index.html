@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<!--
+  ATENÇÃO, quem for regerar este arquivo (skill gestao-projetos-ic ou à mão):
+  preserve (1) o atributo data-id de cada card, igual ao id em ferramentas.json;
+  (2) os elementos #banner, #last-check, #check-note e #btn-refresh;
+  (3) o script carregarStatus() no fim. É isso que liga o painel ao
+  verificador automático (status.json, a cada 4 h). Ferramenta nova: acrescente
+  em ferramentas.json E um card com o mesmo data-id.
+-->
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Monitoramento de Ferramentas — Instituto Cerrados</title>

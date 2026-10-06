@@ -46,3 +46,5 @@ Sem `.streamlit/secrets.toml`, roda sem login (modo desenvolvimento).
 - `.github/workflows/verificar.yml` roda `scripts/verificar.py` a cada 4 horas: grava `status.json` (o painel lê) e `historico.csv`.
 - Quando algo cai, abre uma issue `[fora do ar] <ferramenta>` (o GitHub avisa por e-mail) e fecha sozinha quando a ferramenta volta.
 - Apps Streamlit são lidos pelo status interno do Streamlit Cloud (`/api/v2/app/status`): 5 = rodando, 10 = erro ao iniciar. App privado devolve 404 e aparece como "não verificável de fora".
+
+**Ao regerar o `index.html`** (skill gestao-projetos-ic ou à mão), preserve os `data-id` dos cards, os elementos `#banner`, `#last-check`, `#check-note`, `#btn-refresh` e a função `carregarStatus()`. Sem isso o painel volta a mostrar status fixo. O `app.py` (versão com login) embute o `status.json` no HTML.
