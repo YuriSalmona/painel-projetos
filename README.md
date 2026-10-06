@@ -39,3 +39,10 @@ streamlit run app.py
 ```
 
 Sem `.streamlit/secrets.toml`, roda sem login (modo desenvolvimento).
+
+## Verificação automática (desde 05/10/2026)
+
+- `ferramentas.json` é a lista única das ferramentas monitoradas. Para incluir uma, acrescente um item.
+- `.github/workflows/verificar.yml` roda `scripts/verificar.py` a cada 4 horas: grava `status.json` (o painel lê) e `historico.csv`.
+- Quando algo cai, abre uma issue `[fora do ar] <ferramenta>` (o GitHub avisa por e-mail) e fecha sozinha quando a ferramenta volta.
+- Apps Streamlit são lidos pelo status interno do Streamlit Cloud (`/api/v2/app/status`): 5 = rodando, 10 = erro ao iniciar. App privado devolve 404 e aparece como "não verificável de fora".

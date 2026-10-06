@@ -1,0 +1,19 @@
+{
+  "_leia": "Lista única das ferramentas monitoradas. O verificador (scripts/verificar.py) lê este arquivo a cada 4 horas e o painel mostra o resultado. Para monitorar uma ferramenta nova, acrescente um item aqui. Tipos: streamlit (consulta o status interno do Streamlit Cloud), web (abre a página e procura um trecho de texto), health (endereço técnico que responde ok).",
+  "ferramentas": [
+    {"id": "diagnostico-jurema", "nome": "Diagnóstico Territorial", "programa": "Jurema", "tipo": "streamlit", "url": "https://diagnostico-jurema.streamlit.app/", "repo": "instituto-cerrados-ic/Diagnostico-Jurema"},
+    {"id": "adicionalidade-hidrica", "nome": "Adicionalidade Hídrica", "programa": "Jurema", "tipo": "web", "url": "https://app-yurisalmonas-projects.vercel.app/analise", "contem": "Adicionalidade", "repo": "instituto-cerrados-ic/hidrico"},
+    {"id": "adicionalidade-hidrica-servico", "nome": "Adicionalidade Hídrica — serviço de cálculo (Earth Engine)", "programa": "Jurema", "tipo": "health", "url": "https://hidrico-service-16986163936.us-central1.run.app/health", "parte_de": "adicionalidade-hidrica", "repo": "instituto-cerrados-ic/hidrico"},
+    {"id": "criacao-rppn", "nome": "Criação de RPPN", "programa": "Jurema", "tipo": "streamlit", "url": "https://plataforma-rppn.streamlit.app/", "repo": "instituto-cerrados-ic/plataforma-rppn"},
+    {"id": "incidencia-jurema", "nome": "Incidência Jurema", "programa": "Jurema", "tipo": "web", "url": "https://yurisalmona.github.io/advocacy-rppn/", "contem": "RPPN", "repo": "YuriSalmona/advocacy-rppn"},
+    {"id": "fogo-infiltracao", "nome": "Adicionalidade Hídrica (Fogo & Infiltração)", "programa": "Suindara", "tipo": "streamlit", "url": "https://fogo-infiltracao.streamlit.app/", "repo": "instituto-cerrados-ic/fogo-infiltracao"},
+    {"id": "povoado-consulta", "nome": "Consulta Territorial Povoado", "programa": "Povos do Cerrado", "tipo": "web", "url": "https://yurisalmona.github.io/povoado-consulta/", "contem": "Povoado", "repo": "YuriSalmona/povoado-consulta"},
+    {"id": "povos-metricas", "nome": "Métricas de Resultados", "programa": "Povos do Cerrado", "tipo": "streamlit", "url": "https://povos-cerrado.streamlit.app/", "privado": true, "repo": "YuriSalmona/povos-cerrado"},
+    {"id": "aprhic-webmap", "nome": "Webmap APRHIC", "programa": "Cacimba", "tipo": "web", "url": "https://aprhic.cerrados.org/", "contem": "APRHIC", "repo": "YuriSalmona/apcac-webmap"},
+    {"id": "aprhic-nota", "nome": "Nota Técnica APRHIC", "programa": "Cacimba", "tipo": "web", "url": "https://yurisalmona.github.io/aprhic-nota/", "contem": "Nota", "repo": "YuriSalmona/aprhic-nota"},
+    {"id": "aprhic-analise", "nome": "Sobreposição de Área com APRHIC", "programa": "Cacimba", "tipo": "web", "url": "https://yurisalmona.github.io/aprhic-analise/", "contem": "APRHIC", "repo": "YuriSalmona/aprhic-analise"},
+    {"id": "editais", "nome": "Curadoria de Editais", "programa": "Executivo", "tipo": "web", "url": "https://plataforma-editais-ic.vercel.app/", "contem": "Editais", "repo": "YuriSalmona/plataforma-editais-ic"},
+    {"id": "vereda", "nome": "Vereda (Gestão do IC)", "programa": "Executivo", "tipo": "web", "url": "https://vereda.cerrados.org/", "contem": "Vereda", "repo": "instituto-cerrados-ic/vereda"},
+    {"id": "sistema-cerrado", "nome": "Sistema Cerrado (Hub)", "programa": "Executivo", "tipo": "streamlit", "url": "https://sistema-cerrado.streamlit.app/", "repo": "YuriSalmona/sistema-cerrado"}
+  ]
+}

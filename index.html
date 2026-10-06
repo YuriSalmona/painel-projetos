@@ -64,6 +64,7 @@ section{margin-top:22px}
 .badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .badge{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:600;border-radius:6px;padding:3px 9px;border:1px solid var(--borda);background:var(--card2);color:var(--txt2)}
 .badge .dot{width:7px;height:7px;border-radius:50%}
+.d-bad{background:#C62828}.card-fora{border-color:#C62828!important}.alerta-status{font-size:.74rem;line-height:1.4;background:#FDECEA;color:#8E1B1B;border-radius:8px;padding:8px 10px;margin-bottom:10px}a.pill{text-decoration:none;color:inherit}
 .d-ok{background:var(--ok)}.d-warn{background:var(--warn)}.d-neutro{background:var(--neutro)}
 .card-body{padding:10px 16px 12px;flex:1}
 .campo{display:flex;gap:9px;margin-bottom:8px;font-size:.79rem;line-height:1.45}
@@ -147,25 +148,22 @@ button.pill:disabled{opacity:.6;cursor:wait}
     <div class="nav-label">Em estruturação</div>
     <button class="nav-item soon"><svg class="ic"><use href="#i-link"/></svg>Elos do Cerrado<span class="soon-tag">em breve</span></button>
   </nav>
-  <div class="side-foot">Rumo a um milhão de hectares<br>Fonte: sistema-cerrado.streamlit.app + verificação de 28/07/2026</div>
+  <div class="side-foot">Rumo a um milhão de hectares<br>Fonte: sistema-cerrado.streamlit.app + verificador automático (ferramentas.json)</div>
 </aside>
 
 <main>
 <div class="topbar">
   <h1>Visão geral das plataformas</h1>
   <div class="right">
-    <span class="pill" id="last-check"><svg class="ic"><use href="#i-clock"/></svg>Verificado em 28/07/2026</span>
-    <span class="pill"><svg class="ic"><use href="#i-activity"/></svg>Monitor semanal ativo</span>
-    <button class="pill" id="btn-refresh" title="Verificar agora, direto do seu navegador, se cada plataforma responde"><svg class="ic" id="refresh-ic"><use href="#i-refresh"/></svg>Atualizar</button>
+    <span class="pill" id="last-check"><svg class="ic"><use href="#i-clock"/></svg>Carregando…</span>
+    <a class="pill" href="https://github.com/YuriSalmona/painel-projetos/issues?q=label%3Afora-do-ar" target="_blank" title="Alertas abertos automaticamente quando uma ferramenta cai"><svg class="ic"><use href="#i-activity"/></svg>Verificação automática a cada 4 h</a>
+    <button class="pill" id="btn-refresh" title="Recarregar o resultado da última verificação automática"><svg class="ic" id="refresh-ic"><use href="#i-refresh"/></svg>Atualizar</button>
   </div>
 </div>
 
-<div class="banner">
-  <span class="big">11<small>plataformas</small></span>
-  <span class="item"><span class="dot d-ok"></span>7 no ar</span>
-  <span class="item"><span class="dot d-warn"></span>4 não verificáveis (Streamlit)</span>
-  <span class="item"><svg class="ic"><use href="#i-activity"/></svg>11 monitoradas</span>
-  <span class="item"><svg class="ic"><use href="#i-users"/></svg>0 com analytics de uso</span>
+<div class="banner" id="banner">
+  <span class="big">13<small>ferramentas</small></span>
+  <span class="item"><span class="dot d-neutro"></span>carregando a última verificação…</span>
 </div>
 
 <div id="check-note"></div>
@@ -174,10 +172,10 @@ button.pill:disabled{opacity:.6;cursor:wait}
 
 <!-- ================= JUREMA ================= -->
 <section data-g="jurema" style="--acc:var(--j)">
-  <div class="sec-head"><span class="swatch" style="background:var(--j)"></span><h2>Programa Jurema</h2><span class="count">3 plataformas</span></div>
+  <div class="sec-head"><span class="swatch" style="background:var(--j)"></span><h2>Programa Jurema</h2><span class="count">4 plataformas</span></div>
   <div class="grid">
 
-  <div class="card" style="--acc:var(--j)">
+  <div class="card" data-id="diagnostico-jurema" style="--acc:var(--j)">
     <div class="card-top">
       <h3><svg class="ic"><use href="#i-map"/></svg>Diagnóstico Territorial</h3>
       <div class="badges">
@@ -198,7 +196,7 @@ button.pill:disabled{opacity:.6;cursor:wait}
     <div class="card-foot"><a class="btn btn-pri" href="https://diagnostico-jurema.streamlit.app/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a><a class="btn btn-sec" href="docs.html#diagnostico-territorial"><svg class="ic"><use href="#i-file"/></svg>Docs</a></div>
   </div>
 
-  <div class="card" style="--acc:var(--j)">
+  <div class="card" data-id="adicionalidade-hidrica" style="--acc:var(--j)">
     <div class="card-top">
       <h3><svg class="ic"><use href="#i-drop"/></svg>Adicionalidade Hídrica</h3>
       <div class="badges">
@@ -220,7 +218,7 @@ button.pill:disabled{opacity:.6;cursor:wait}
     <div class="card-foot"><a class="btn btn-pri" href="https://app-yurisalmonas-projects.vercel.app/analise" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a><a class="btn btn-sec" href="docs.html#adicionalidade-hidrica"><svg class="ic"><use href="#i-file"/></svg>Docs</a></div>
   </div>
 
-  <div class="card" style="--acc:var(--j)">
+  <div class="card" data-id="criacao-rppn" style="--acc:var(--j)">
     <div class="card-top">
       <h3><svg class="ic"><use href="#i-shield"/></svg>Criação de RPPN</h3>
       <div class="badges">
@@ -241,7 +239,24 @@ button.pill:disabled{opacity:.6;cursor:wait}
     <div class="card-foot"><a class="btn btn-pri" href="https://plataforma-rppn.streamlit.app/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a><a class="btn btn-sec" href="docs.html#criacao-rppn"><svg class="ic"><use href="#i-file"/></svg>Docs</a></div>
   </div>
 
+  
+  <div class="card" data-id="incidencia-jurema" style="--acc:var(--j)">
+    <div class="card-top">
+      <h3><svg class="ic"><use href="#i-file"/></svg>Incidência Jurema</h3>
+      <div class="badges">
+        <span class="badge"><span class="dot d-neutro"></span>Aguardando verificação</span>
+        <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Plano de advocacy do Programa Jurema para RPPN e RPPPN, em página única no padrão visual do programa.</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b>Publicada em julho de 2026 a partir do Google Doc de referência.</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b>GitHub: yurisalmona/advocacy-rppn</div></div>
+      <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul><li>Indicar no topo a data da última revisão do texto.</li><li>Ligar a página às ferramentas Criação de RPPN e Diagnóstico Territorial.</li></ul></div></details>
+    </div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://yurisalmona.github.io/advocacy-rppn/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a></div>
   </div>
+</div>
 </section>
 
 <!-- ================= SUINDARA ================= -->
@@ -249,7 +264,7 @@ button.pill:disabled{opacity:.6;cursor:wait}
   <div class="sec-head"><span class="swatch" style="background:var(--s)"></span><h2>Programa Suindara</h2><span class="count">1 plataforma</span></div>
   <div class="grid">
 
-  <div class="card" style="--acc:var(--s)">
+  <div class="card" data-id="fogo-infiltracao" style="--acc:var(--s)">
     <div class="card-top">
       <h3><svg class="ic"><use href="#i-flame"/></svg>Adicionalidade Hídrica (Fogo &amp; Infiltração)</h3>
       <div class="badges">
@@ -278,7 +293,7 @@ button.pill:disabled{opacity:.6;cursor:wait}
   <div class="sec-head"><span class="swatch" style="background:var(--p)"></span><h2>Programa Povos do Cerrado</h2><span class="count">2 plataformas</span></div>
   <div class="grid">
 
-  <div class="card" style="--acc:var(--p)">
+  <div class="card" data-id="povoado-consulta" style="--acc:var(--p)">
     <div class="card-top">
       <h3><svg class="ic"><use href="#i-search"/></svg>Consulta Territorial Povoado</h3>
       <div class="badges">
@@ -299,7 +314,7 @@ button.pill:disabled{opacity:.6;cursor:wait}
     <div class="card-foot"><a class="btn btn-pri" href="https://yurisalmona.github.io/povoado-consulta/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a><a class="btn btn-sec" href="docs.html#povoado-consulta"><svg class="ic"><use href="#i-file"/></svg>Docs</a></div>
   </div>
 
-  <div class="card" style="--acc:var(--p)">
+  <div class="card" data-id="povos-metricas" style="--acc:var(--p)">
     <div class="card-top">
       <h3><svg class="ic"><use href="#i-users"/></svg>Métricas de Resultados</h3>
       <div class="badges">
@@ -328,9 +343,9 @@ button.pill:disabled{opacity:.6;cursor:wait}
   <div class="sec-head"><span class="swatch" style="background:var(--c)"></span><h2>Programa Cacimba</h2><span class="count">3 plataformas · cooperação MMA + IPH/UFRGS</span></div>
   <div class="grid">
 
-  <div class="card" style="--acc:var(--c)">
+  <div class="card" data-id="aprhic-webmap" style="--acc:var(--c)">
     <div class="card-top">
-      <h3><svg class="ic"><use href="#i-map"/></svg>Webmap APCAC</h3>
+      <h3><svg class="ic"><use href="#i-map"/></svg>Webmap APRHIC</h3>
       <div class="badges">
         <span class="badge"><span class="dot d-ok"></span>No ar</span>
         <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
@@ -346,49 +361,49 @@ button.pill:disabled{opacity:.6;cursor:wait}
         <li>Botão "como citar" — relevante por ser produto de cooperação com o MMA.</li>
       </ul></div></details>
     </div>
-    <div class="card-foot"><a class="btn btn-pri" href="https://yurisalmona.github.io/apcac-webmap/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a><a class="btn btn-sec" href="docs.html#apcac-webmap"><svg class="ic"><use href="#i-file"/></svg>Docs</a></div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://aprhic.cerrados.org/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a><a class="btn btn-sec" href="docs.html#apcac-webmap"><svg class="ic"><use href="#i-file"/></svg>Docs</a></div>
   </div>
 
-  <div class="card" style="--acc:var(--c)">
+  <div class="card" data-id="aprhic-nota" style="--acc:var(--c)">
     <div class="card-top">
-      <h3><svg class="ic"><use href="#i-file"/></svg>Nota Técnica APCAC</h3>
+      <h3><svg class="ic"><use href="#i-file"/></svg>Nota Técnica APRHIC</h3>
       <div class="badges">
         <span class="badge"><span class="dot d-ok"></span>No ar</span>
         <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
       </div>
     </div>
     <div class="card-body">
-      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Nota técnica web do estudo APCAC: metodologia, 11 regiões hidrográficas e indicações de proteção, restauração, comando-controle e manejo.</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Nota técnica web do estudo APRHIC: metodologia, 11 regiões hidrográficas e indicações de proteção, restauração, comando-controle e manejo.</div></div>
       <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b>Nota técnica completa publicada</div></div>
       <div class="campo"><svg class="ic"><use href="#i-zap"/></svg><div><b>Skill associada</b>yuri-cientifico · ic-documentos (ativas)</div></div>
-      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b>GitHub: yurisalmona/apcac-nota · Drive <span class="pend">a registrar</span></div></div>
+      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b>GitHub: yurisalmona/aprhic-nota · Drive <span class="pend">a registrar</span></div></div>
       <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul>
         <li>Versão PDF com DOI (Zenodo, gratuito) para citação acadêmica.</li>
-        <li>Navegação comum interligando as três peças APCAC.</li>
+        <li>Navegação comum interligando as três peças APRHIC.</li>
       </ul></div></details>
     </div>
-    <div class="card-foot"><a class="btn btn-pri" href="https://yurisalmona.github.io/apcac-nota/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a><a class="btn btn-sec" href="docs.html#apcac-nota"><svg class="ic"><use href="#i-file"/></svg>Docs</a></div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://yurisalmona.github.io/aprhic-nota/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a><a class="btn btn-sec" href="docs.html#apcac-nota"><svg class="ic"><use href="#i-file"/></svg>Docs</a></div>
   </div>
 
-  <div class="card" style="--acc:var(--c)">
+  <div class="card" data-id="aprhic-analise" style="--acc:var(--c)">
     <div class="card-top">
-      <h3><svg class="ic"><use href="#i-layers"/></svg>Sobreposição de Área com APCAC</h3>
+      <h3><svg class="ic"><use href="#i-layers"/></svg>Sobreposição de Área com APRHIC</h3>
       <div class="badges">
         <span class="badge"><span class="dot d-ok"></span>No ar</span>
         <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
       </div>
     </div>
     <div class="card-body">
-      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Consulta por shapefile zipado ou polígono desenhado no mapa: retorna a classe APCAC, o risco e a ação recomendada para o local ("Está dentro?").</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Consulta por shapefile zipado ou polígono desenhado no mapa: retorna a classe APRHIC, o risco e a ação recomendada para o local ("Está dentro?").</div></div>
       <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b>Ferramenta de consulta operacional</div></div>
       <div class="campo"><svg class="ic"><use href="#i-zap"/></svg><div><b>Skill associada</b>cerrado-gee-setup · instituto-cerrados-branding (ativas)</div></div>
-      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b>GitHub: yurisalmona/apcac-analise · Drive <span class="pend">a registrar</span></div></div>
+      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b>GitHub: yurisalmona/aprhic-analise · Drive <span class="pend">a registrar</span></div></div>
       <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul>
         <li>Aceitar também GeoJSON e KML além de shapefile.</li>
         <li>Relatório PDF do resultado da consulta, para anexar em processos.</li>
       </ul></div></details>
     </div>
-    <div class="card-foot"><a class="btn btn-pri" href="https://yurisalmona.github.io/apcac-analise/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a><a class="btn btn-sec" href="docs.html#apcac-sobreposicao"><svg class="ic"><use href="#i-file"/></svg>Docs</a></div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://yurisalmona.github.io/aprhic-analise/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a><a class="btn btn-sec" href="docs.html#apcac-sobreposicao"><svg class="ic"><use href="#i-file"/></svg>Docs</a></div>
   </div>
 
   </div>
@@ -396,10 +411,10 @@ button.pill:disabled{opacity:.6;cursor:wait}
 
 <!-- ================= EXECUTIVO ================= -->
 <section data-g="executivo" style="--acc:var(--x)">
-  <div class="sec-head"><span class="swatch" style="background:var(--x)"></span><h2>Executivo</h2><span class="count">2 plataformas</span></div>
+  <div class="sec-head"><span class="swatch" style="background:var(--x)"></span><h2>Executivo</h2><span class="count">3 plataformas</span></div>
   <div class="grid">
 
-  <div class="card" style="--acc:var(--x)">
+  <div class="card" data-id="editais" style="--acc:var(--x)">
     <div class="card-top">
       <h3><svg class="ic"><use href="#i-search"/></svg>Curadoria de Editais</h3>
       <div class="badges">
@@ -420,7 +435,7 @@ button.pill:disabled{opacity:.6;cursor:wait}
     <div class="card-foot"><a class="btn btn-pri" href="https://plataforma-editais-ic.vercel.app/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a><a class="btn btn-sec" href="docs.html#editais"><svg class="ic"><use href="#i-file"/></svg>Docs</a></div>
   </div>
 
-  <div class="card" style="--acc:var(--x)">
+  <div class="card" data-id="sistema-cerrado" style="--acc:var(--x)">
     <div class="card-top">
       <h3><svg class="ic"><use href="#i-globe"/></svg>Sistema Cerrado (Hub)</h3>
       <div class="badges">
@@ -441,21 +456,39 @@ button.pill:disabled{opacity:.6;cursor:wait}
     <div class="card-foot"><a class="btn btn-pri" href="https://sistema-cerrado.streamlit.app/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a><a class="btn btn-sec" href="docs.html#sistema-cerrado"><svg class="ic"><use href="#i-file"/></svg>Docs</a></div>
   </div>
 
+  
+  <div class="card" data-id="vereda" style="--acc:var(--x)">
+    <div class="card-top">
+      <h3><svg class="ic"><use href="#i-grid"/></svg>Vereda (Gestão do IC)</h3>
+      <div class="badges">
+        <span class="badge"><span class="dot d-neutro"></span>Aguardando verificação</span>
+        <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-lock"/></svg>Login @cerrados.org</span>
+        <span class="badge"><svg class="ic" style="width:12px;height:12px"><use href="#i-activity"/></svg>Monitor</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="campo"><svg class="ic"><use href="#i-info"/></svg><div><b>Resumo</b>Plataforma de gestão do Instituto Cerrados: projetos, metas, financeiro e aferição, com perfis de acesso por pessoa.</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-check"/></svg><div><b>Última realização</b>Publicada em 31/08/2026 em vereda.cerrados.org.</div></div>
+      <div class="campo"><svg class="ic"><use href="#i-folder"/></svg><div><b>Pastas Drive / PC</b>GitHub: instituto-cerrados-ic/vereda (privado) · handoff em ESTADO_E_HANDOFF.md</div></div>
+      <details><summary><svg class="ic"><use href="#i-bulb"/></svg>Sugestões de melhoria</summary><div class="sug"><ul><li>Concluir o cadastro dos perfis reais da equipe.</li><li>Usar como referência de padrão na auditoria: já tem testes automáticos e CI.</li></ul></div></details>
+    </div>
+    <div class="card-foot"><a class="btn btn-pri" href="https://vereda.cerrados.org/" target="_blank"><svg class="ic"><use href="#i-ext"/></svg>Abrir</a></div>
   </div>
+</div>
 </section>
 
 <div class="transv">
   <h2><svg class="ic"><use href="#i-bulb"/></svg>Sugestões transversais</h2>
   <ol>
     <li><b>Analytics unificado:</b> nenhuma das 9 mede uso — GoatCounter (gratuito) resolve todas com uma linha de script.</li>
-    <li><b>Domínio institucional:</b> subdomínios de cerrados.org (apcac.cerrados.org, editais.cerrados.org, sistema.cerrados.org) protegem os links citados em relatórios.</li>
+    <li><b>Domínio institucional:</b> subdomínios de cerrados.org (aprhic.cerrados.org e vereda.cerrados.org já existem; faltam editais.cerrados.org e sistema.cerrados.org) protegem os links citados em relatórios.</li>
     <li><b>Hibernação do Streamlit:</b> Diagnóstico Territorial, Criação de RPPN e Fogo &amp; Infiltração hibernam sem uso — considerar migração.</li>
     <li><b>Contexto vivo:</b> o arquivo projetos-ic-contexto.md (no Google Drive) é a memória entre conversas — mantenha-o atualizado.</li>
     <li><b>Drive organizado:</b> pasta Plataformas/ com subpasta por projeto, caminhos registrados no arquivo mestre.</li>
   </ol>
 </div>
 
-<footer>Instituto Cerrados · Painel gerado com Claude Cowork · agrupamento oficial: sistema-cerrado.streamlit.app · identidade visual: Plataforma de Editais IC · atualize pedindo em qualquer conversa: "atualize o painel de projetos"</footer>
+<footer>Instituto Cerrados · Monitoramento de Ferramentas · agrupamento oficial: sistema-cerrado.streamlit.app · identidade visual: Plataforma de Editais IC · atualize pedindo em qualquer conversa: "atualize o painel de projetos"</footer>
 </div>
 </main>
 </div>
@@ -468,60 +501,56 @@ items.forEach(b=>b.addEventListener('click',()=>{
   secs.forEach(s=>{s.style.display=(f==='todos'||s.dataset.g===f)?'':'none';});
 }));
 
-/* ===== Botão Atualizar: verificação ao vivo pelo navegador ===== */
-const PROJECTS=[
- {url:'https://diagnostico-jurema.streamlit.app/',kind:'streamlit'},
- {url:'https://app-yurisalmonas-projects.vercel.app/analise',kind:'ext'},
- {url:'https://plataforma-rppn.streamlit.app/',kind:'streamlit'},
- {url:'https://fogo-infiltracao.streamlit.app/',kind:'streamlit'},
- {url:'https://yurisalmona.github.io/povoado-consulta/',kind:'same'},
- {url:'https://povos-cerrado.streamlit.app/',kind:'streamlit'},
- {url:'https://yurisalmona.github.io/apcac-webmap/',kind:'same'},
- {url:'https://yurisalmona.github.io/apcac-nota/',kind:'same'},
- {url:'https://yurisalmona.github.io/apcac-analise/',kind:'same'},
- {url:'https://plataforma-editais-ic.vercel.app/',kind:'ext'},
- {url:'https://sistema-cerrado.streamlit.app/',kind:'streamlit'}
-];
-async function ping(p){
-  const ctrl=new AbortController();const t=setTimeout(()=>ctrl.abort(),8000);
-  try{
-    if(p.kind==='same'){
-      const r=await fetch(p.url,{cache:'no-store',signal:ctrl.signal});
-      clearTimeout(t);return r.ok?'ok':'fail';
-    }
-    await fetch(p.url,{mode:'no-cors',cache:'no-store',signal:ctrl.signal});
-    clearTimeout(t);return 'resp';
-  }catch(e){clearTimeout(t);return p.kind==='streamlit'?'st':'fail';}
+/* ===== Status vindo do verificador automático (GitHub Actions, a cada 4 h) ===== */
+const ROTULO={ok:['d-ok','No ar'],atencao:['d-warn','Atenção'],fora:['d-bad','Fora do ar'],nao_verificavel:['d-neutro','Não verificável de fora']};
+function quando(iso){
+  const d=new Date(iso),h=(Date.now()-d)/36e5;
+  const txt=d.toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+  return {txt,h};
 }
-function setBadge(url,st){
-  document.querySelectorAll('.card-foot a').forEach(a=>{
-    if(a.getAttribute('href')!==url)return;
-    const b=a.closest('.card').querySelector('.badges .badge');
-    if(st==='ok')b.innerHTML='<span class="dot d-ok"></span>No ar — verificado agora';
-    else if(st==='resp')b.innerHTML='<span class="dot d-ok"></span>Servidor respondeu agora';
-    else if(st==='st')b.innerHTML='<span class="dot d-warn"></span>Não verificável pelo navegador (Streamlit)';
-    else b.innerHTML='<span class="dot" style="background:#C62828"></span>Sem resposta — checar';
-  });
-}
-document.getElementById('btn-refresh').addEventListener('click',async()=>{
+async function carregarStatus(){
   const btn=document.getElementById('btn-refresh'),icon=document.getElementById('refresh-ic');
   btn.disabled=true;icon.classList.add('spin');
-  const results=await Promise.all(PROJECTS.map(async p=>({p,st:await ping(p)})));
-  results.forEach(r=>setBadge(r.p.url,r.st));
-  const up=results.filter(r=>r.st==='ok'||r.st==='resp').length;
-  const stb=results.filter(r=>r.st==='st').length;
-  const down=results.filter(r=>r.st==='fail').length;
-  const hh=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('last-check').innerHTML='<svg class="ic"><use href="#i-clock"/></svg>Verificação local: hoje às '+hh;
-  const note=document.getElementById('check-note');
-  note.style.display='block';
-  note.innerHTML='<b>Verificação local concluída ('+hh+'):</b> '+up+' de '+results.length+' plataformas responderam'
-   +(stb?', '+stb+' não verificáveis pelo navegador (Streamlit bloqueia a checagem — não significa que estão fora do ar)':'')
-   +(down?', <b>'+down+' sem resposta</b> — abra o link para confirmar':'')+'. '
-   +'Para a <b>verificação completa</b> — o que mudou em cada projeto e se há projetos novos no Sistema Cerrado — peça ao Claude: '
-   +'<b>"atualize o painel de projetos"</b> (skill gestao-projetos-ic), ou aguarde o monitor automático de segunda-feira, que envia notificação se algo cair.';
+  try{
+    const r=await fetch('status.json?t='+Date.now(),{cache:'no-store'});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const s=await r.json();
+    const por={};s.ferramentas.forEach(f=>por[f.id]=Object.assign({},f));
+    // O serviço de cálculo (Cloud Run) entra no card da Adicionalidade Hídrica
+    const svc=por['adicionalidade-hidrica-servico'],app=por['adicionalidade-hidrica'];
+    if(svc&&app&&svc.status!=='ok'){app.status='fora';app.detalhe='A página abre, mas o serviço de cálculo não responde: '+svc.detalhe;}
+    document.querySelectorAll('.card[data-id]').forEach(c=>{
+      const f=por[c.dataset.id];if(!f)return;
+      const [cls,txt]=ROTULO[f.status]||ROTULO.nao_verificavel;
+      const b=c.querySelector('.badges .badge');
+      b.innerHTML='<span class="dot '+cls+'"></span>'+txt;b.title=f.detalhe;
+      c.classList.toggle('card-fora',f.status==='fora');
+      let al=c.querySelector('.alerta-status');
+      if(f.status==='fora'||f.status==='atencao'){
+        if(!al){al=document.createElement('div');al.className='alerta-status';c.querySelector('.card-body').prepend(al);}
+        al.textContent=f.detalhe;
+      }else if(al)al.remove();
+    });
+    const lista=s.ferramentas.filter(f=>f.id!=='adicionalidade-hidrica-servico').map(f=>por[f.id]);
+    const n=k=>lista.filter(f=>f.status===k).length;
+    const q=quando(s.verificado_em);
+    document.getElementById('banner').innerHTML='<span class="big">'+lista.length+'<small>ferramentas</small></span>'
+      +'<span class="item"><span class="dot d-ok"></span>'+n('ok')+' no ar</span>'
+      +(n('fora')?'<span class="item"><span class="dot d-bad"></span><b>'+n('fora')+' fora do ar</b></span>':'')
+      +(n('atencao')?'<span class="item"><span class="dot d-warn"></span>'+n('atencao')+' com atenção</span>':'')
+      +(n('nao_verificavel')?'<span class="item"><span class="dot d-neutro"></span>'+n('nao_verificavel')+' não verificável de fora</span>':'');
+    document.getElementById('last-check').innerHTML='<svg class="ic"><use href="#i-clock"/></svg>Verificado em '+q.txt;
+    const note=document.getElementById('check-note');
+    if(q.h>9){note.style.display='block';note.innerHTML='<b>A última verificação tem mais de 9 horas.</b> O verificador automático pode ter parado: veja a aba <a href="https://github.com/YuriSalmona/painel-projetos/actions" target="_blank">Actions</a> do repositório.';}
+    else if(n('fora')){note.style.display='block';note.innerHTML='<b>'+n('fora')+' ferramenta(s) fora do ar.</b> Um alerta foi aberto automaticamente em <a href="https://github.com/YuriSalmona/painel-projetos/issues?q=is%3Aopen+label%3Afora-do-ar" target="_blank">Issues</a> e fecha sozinho quando ela voltar.';}
+    else note.style.display='none';
+  }catch(e){
+    document.getElementById('last-check').innerHTML='<svg class="ic"><use href="#i-clock"/></svg>Sem dados de verificação';
+  }
   btn.disabled=false;icon.classList.remove('spin');
-});
+}
+document.getElementById('btn-refresh').addEventListener('click',carregarStatus);
+carregarStatus();
 </script>
 </body>
 </html>

@@ -1,0 +1,48 @@
+# Verifica as ferramentas do Instituto Cerrados a cada 4 horas.
+#
+# - Grava status.json (o painel mostra) e historico.csv (série temporal).
+# - Abre uma issue "[fora do ar] <ferramenta>" quando algo cai e fecha quando
+#   volta. O GitHub manda e-mail das issues ao dono do repositório: é o alerta.
+# - O commit a cada execução também mantém o repositório "ativo", então o
+#   GitHub não desliga este agendamento por inatividade (regra dos 60 dias).
+# - Para incluir uma ferramenta, edite ferramentas.json. Nada mais.
+
+name: Verificar ferramentas
+
+on:
+  schedule:
+    - cron: "41 */4 * * *" # a cada 4 horas, minuto quebrado para fugir da fila
+  workflow_dispatch: # botão "Run workflow" para verificar na hora
+
+permissions:
+  contents: write # commitar status.json / historico.csv
+  issues: write # abrir e fechar os alertas
+
+concurrency:
+  group: verificar-ferramentas
+  cancel-in-progress: false
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Garante o rótulo dos alertas
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create fora-do-ar --color C62828 --description "Alerta automático do verificador" 2>/dev/null || true
+      - name: Verifica
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/verificar.py
+      - name: Publica o resultado
+        run: |
+          git config user.name "verificador-ic"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add status.json historico.csv
+          git commit -m "Verificação automática $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          git pull --rebase -q && git push -q
