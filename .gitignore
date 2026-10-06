@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 .venv/
 .claude/
+# Fichas de auditoria citam brechas de segurança: só versionar quando o repo estiver privado
+auditoria/
