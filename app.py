@@ -85,6 +85,14 @@ def _documento(assinatura):
     e data dos arquivos) entra só para o cache expirar sozinho quando a
     rotina semanal substituir o index.html."""
     index = (BASE / "index.html").read_text(encoding="utf-8")
+    # Resultado do verificador automático (scripts/verificar.py, a cada 4 h).
+    # Dentro do iframe o painel não consegue buscar o status.json, então ele
+    # vai embutido no documento.
+    status_path = BASE / "status.json"
+    if status_path.exists():
+        dados = status_path.read_text(encoding="utf-8").replace("</", "<\\/")
+        embutido = "<script>window.STATUS_IC=" + dados + ";</script>\n<script>"
+        index = index.replace("<script>", embutido, 1)
     docs_path = BASE / "docs.html"
     if docs_path.exists():
         estilos_docs, corpo_docs = _trechos(docs_path.read_text(encoding="utf-8"))
@@ -133,7 +141,7 @@ def _documento(assinatura):
 
 def _assinatura_arquivos():
     partes = []
-    for nome in ("index.html", "docs.html"):
+    for nome in ("index.html", "docs.html", "status.json"):
         p = BASE / nome
         if p.exists():
             s = p.stat()
