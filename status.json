@@ -1,131 +1,131 @@
 {
- "verificado_em": "2026-11-17T03:09:22Z",
+ "verificado_em": "2026-11-17T13:50:48Z",
  "ferramentas": [
   {
    "status": "atencao",
    "detalhe": "App dormindo ou reiniciando (código Streamlit 12). Quem abrir verá a tela de acordar.",
-   "ms": 264,
+   "ms": 460,
    "id": "diagnostico-jurema",
    "nome": "Diagnóstico Territorial",
    "url": "https://diagnostico-jurema.streamlit.app/",
-   "verificado_em": "2026-11-17T03:09:22Z"
+   "verificado_em": "2026-11-17T13:50:48Z"
   },
   {
    "status": "ok",
    "detalhe": "HTTP 200",
-   "ms": 2180,
+   "ms": 2329,
    "id": "adicionalidade-hidrica",
    "nome": "Adicionalidade Hídrica",
    "url": "https://app-yurisalmonas-projects.vercel.app/analise",
-   "verificado_em": "2026-11-17T03:09:22Z"
+   "verificado_em": "2026-11-17T13:50:48Z"
   },
   {
    "status": "ok",
    "detalhe": "Serviço respondeu ok",
-   "ms": 21803,
+   "ms": 22314,
    "id": "adicionalidade-hidrica-servico",
    "nome": "Adicionalidade Hídrica — serviço de cálculo (Earth Engine)",
    "url": "https://hidrico-service-16986163936.us-central1.run.app/health",
-   "verificado_em": "2026-11-17T03:09:22Z"
+   "verificado_em": "2026-11-17T13:50:48Z"
   },
   {
    "status": "atencao",
    "detalhe": "App dormindo ou reiniciando (código Streamlit 12). Quem abrir verá a tela de acordar.",
-   "ms": 270,
+   "ms": 400,
    "id": "criacao-rppn",
    "nome": "Criação de RPPN",
    "url": "https://plataforma-rppn.streamlit.app/",
-   "verificado_em": "2026-11-17T03:09:22Z"
+   "verificado_em": "2026-11-17T13:50:48Z"
   },
   {
    "status": "ok",
    "detalhe": "HTTP 200",
-   "ms": 174,
+   "ms": 232,
    "id": "incidencia-jurema",
    "nome": "Incidência Jurema",
    "url": "https://yurisalmona.github.io/advocacy-rppn/",
-   "verificado_em": "2026-11-17T03:09:22Z"
+   "verificado_em": "2026-11-17T13:50:48Z"
   },
   {
    "status": "atencao",
    "detalhe": "App dormindo ou reiniciando (código Streamlit 12). Quem abrir verá a tela de acordar.",
-   "ms": 265,
+   "ms": 456,
    "id": "fogo-infiltracao",
    "nome": "Adicionalidade Hídrica (Fogo & Infiltração)",
    "url": "https://fogo-infiltracao.streamlit.app/",
-   "verificado_em": "2026-11-17T03:09:22Z"
+   "verificado_em": "2026-11-17T13:50:48Z"
   },
   {
    "status": "ok",
    "detalhe": "HTTP 200",
-   "ms": 675,
+   "ms": 97,
    "id": "povoado-consulta",
    "nome": "Consulta Territorial Povoado",
    "url": "https://yurisalmona.github.io/povoado-consulta/",
-   "verificado_em": "2026-11-17T03:09:22Z"
+   "verificado_em": "2026-11-17T13:50:48Z"
   },
   {
    "status": "nao_verificavel",
    "detalhe": "App privado no Streamlit: o status só aparece para quem tem acesso.",
-   "ms": 340,
+   "ms": 450,
    "id": "povos-metricas",
    "nome": "Métricas de Resultados",
    "url": "https://povos-cerrado.streamlit.app/",
-   "verificado_em": "2026-11-17T03:09:22Z"
+   "verificado_em": "2026-11-17T13:50:48Z"
   },
   {
    "status": "ok",
    "detalhe": "HTTP 200",
-   "ms": 330,
+   "ms": 202,
    "id": "aprhic-webmap",
    "nome": "Webmap APRHIC",
    "url": "https://aprhic.cerrados.org/",
-   "verificado_em": "2026-11-17T03:09:22Z"
+   "verificado_em": "2026-11-17T13:50:48Z"
   },
   {
    "status": "ok",
    "detalhe": "HTTP 200",
-   "ms": 329,
+   "ms": 244,
    "id": "aprhic-nota",
    "nome": "Nota Técnica APRHIC",
    "url": "https://yurisalmona.github.io/aprhic-nota/",
-   "verificado_em": "2026-11-17T03:09:22Z"
+   "verificado_em": "2026-11-17T13:50:48Z"
   },
   {
    "status": "ok",
    "detalhe": "HTTP 200",
-   "ms": 179,
+   "ms": 115,
    "id": "aprhic-analise",
    "nome": "Sobreposição de Área com APRHIC",
    "url": "https://yurisalmona.github.io/aprhic-analise/",
-   "verificado_em": "2026-11-17T03:09:22Z"
+   "verificado_em": "2026-11-17T13:50:48Z"
   },
   {
    "status": "ok",
    "detalhe": "HTTP 307",
-   "ms": 372,
+   "ms": 323,
    "id": "editais",
    "nome": "Curadoria de Editais",
    "url": "https://plataforma-editais-ic.vercel.app/",
-   "verificado_em": "2026-11-17T03:09:22Z"
+   "verificado_em": "2026-11-17T13:50:48Z"
   },
   {
    "status": "ok",
    "detalhe": "HTTP 200",
-   "ms": 2596,
+   "ms": 2749,
    "id": "vereda",
    "nome": "Vereda (Gestão do IC)",
    "url": "https://vereda.cerrados.org/",
-   "verificado_em": "2026-11-17T03:09:22Z"
+   "verificado_em": "2026-11-17T13:50:48Z"
   },
   {
    "status": "atencao",
    "detalhe": "App dormindo ou reiniciando (código Streamlit 12). Quem abrir verá a tela de acordar.",
-   "ms": 274,
+   "ms": 385,
    "id": "sistema-cerrado",
    "nome": "Sistema Cerrado (Hub)",
    "url": "https://sistema-cerrado.streamlit.app/",
-   "verificado_em": "2026-11-17T03:09:22Z"
+   "verificado_em": "2026-11-17T13:50:48Z"
   }
  ]
 }
